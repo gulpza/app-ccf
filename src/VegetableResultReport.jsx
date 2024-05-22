@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Spinner } from 'react-bootstrap';
+import moment from 'moment';
 
 function formatDate(date) {
   const year = date.getFullYear();
@@ -14,7 +15,9 @@ function VegetableResultReport() {
   const [filteredData, setFilteredData] = useState([]);
   const [empId, setEmpId] = useState('');
   const [employees, setEmployees] = useState([]);
-  const [filterDate, setFilterDate] = useState(formatDate(new Date())); // Set default date to today
+  // const [filterDate, setFilterDate] = useState(formatDate(new Date())); // Set default date to today
+  const [startDate, setStartDate] = useState(formatDate(new Date())); // Start date default to today
+  const [endDate, setEndDate] = useState(formatDate(new Date())); // End date default to today
   const [loading, setLoading] = useState(false); // State variable for loading indicator
 
   // Fetch employee data when the component mounts
@@ -44,23 +47,45 @@ function VegetableResultReport() {
     // Construct the API URL with parameters
     let apiUrl = 'https://script.google.com/macros/s/AKfycby9Ghx-4BZ0aiFLwDQu95H-tebWhzGf_P8nH1iy_2-X0Vp9rG5bGuq3CeVJwxGohNdy/exec';
     apiUrl += `?empId=${encodeURIComponent(empId.trim().toUpperCase())}`;
-    apiUrl += `&startDate=${encodeURIComponent(filterDate.trim())}`;
-    apiUrl += `&endDate=${encodeURIComponent(filterDate.trim())}`;
+    apiUrl += `&startDate=${encodeURIComponent(startDate.trim())}`;
+    apiUrl += `&endDate=${encodeURIComponent(endDate.trim())}`;
 
     // Make a fetch request to the API
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
-        // Update the filtered data state with the response data
+
+        const reduceData = data.reduce((acc, item) => {
+          const { วันที่เด็ด, ประเภทผัก, น้ำหนัก } = item;
+          const key = `${วันที่เด็ด}_${ประเภทผัก}`;
+          
+          if (!acc[key]) {
+              acc[key] = {
+                  วันที่เด็ด,
+                  ประเภทผัก,
+                  totalWeight: 0
+              };
+          }
+          
+          acc[key].totalWeight += น้ำหนัก;
+          
+          return acc;
+      }, {});
+
+        data = Object.values(reduceData);
+        
         const result = data.map((e, i) => {
           return {
-            no: i + 1,
-            farmName: e['ชื่อไร่'],
+            date: e['วันที่เด็ด'],
             vegetable: e['ประเภทผัก'],
-            qty: e['น้ำหนัก']
+            totalWeight: e.totalWeight.toFixed(2)
           }
         });
+
+        result.sort((a, b) => new Date(a.date) - new Date(b.date));
+
         setFilteredData(result);
+
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -95,18 +120,26 @@ function VegetableResultReport() {
             </option>
           ))}
         </select>
-        <label htmlFor="filterDate" className="form-label mt-3">วันที่เด็ด:</label>
-        <input
-          type="date"
-          id="filterDate"
-          className="form-control"
-          value={filterDate}
-          onChange={(e) => setFilterDate(e.target.value)}
-        />
+        <label htmlFor="startDate" className="form-label mt-3 me-3">วันที่เริ่ม:</label>
+<input
+  type="date"
+  id="startDate"
+  className="form-control me-3"
+  value={startDate}
+  onChange={(e) => setStartDate(e.target.value)}
+/>
+<label htmlFor="endDate" className="form-label mt-3 me-3">สิ้นสุด:</label>
+<input
+  type="date"
+  id="endDate"
+  className="form-control me-3"
+  value={endDate}
+  onChange={(e) => setEndDate(e.target.value)}
+/>
         <button
           className="btn btn-primary mt-3 mb-3 btn-lg btn-block me-3"
           onClick={handleFilter}
-          disabled={!empId || !filterDate}
+          disabled={!empId || !startDate || !endDate}
         >
           ค้นหา
         </button>
@@ -123,18 +156,18 @@ function VegetableResultReport() {
       <table className="table table-striped">
         <thead className="thead-light">
           <tr>
-            <th scope="col">ลำดับ</th>
-            <th scope="col">ผัก</th>
-            <th scope="col">จำนวน</th>
+            <th scope="col">วันที่</th>
+            <th scope="col">ประเภทผัก</th>
+            <th scope="col">น้ำหนัก</th>
           </tr>
         </thead>
         <tbody>
           {filteredData.length > 0 ? (
             filteredData.map((item, index) => (
               <tr key={index}>
-                <td>{item.no}</td>
-                <td style={{ textAlign: 'left' }}>{item.vegetable}</td>
-                <td>{item.qty}</td>
+                <td>{moment(item.date).format('DD/MM/YYYY')}</td>
+                <td>{item.vegetable}</td>
+                <td>{item.totalWeight}</td>
               </tr>
             ))
           ) : (
