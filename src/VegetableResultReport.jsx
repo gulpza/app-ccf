@@ -15,19 +15,20 @@ function VegetableResultReport() {
   const [filteredData, setFilteredData] = useState([]);
   const [empId, setEmpId] = useState('');
   const [employees, setEmployees] = useState([]);
-  // const [filterDate, setFilterDate] = useState(formatDate(new Date())); // Set default date to today
   const [startDate, setStartDate] = useState(formatDate(new Date())); // Start date default to today
   const [endDate, setEndDate] = useState(formatDate(new Date())); // End date default to today
   const [loading, setLoading] = useState(false); // State variable for loading indicator
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // Fetch employee data when the component mounts
   useEffect(() => {
-    handleEmployees();
+    handleMember();
   }, []);
 
-  const handleEmployees = () => { 
+  const handleMember = () => { 
     setLoading(true);
-    fetch('https://script.google.com/macros/s/AKfycbxONu0P-iT_NyQzh_-MMEdSFQBKzFhKAoZuHNeYpBv7xHwkhSU2fBfLLI37tOZ6H4hI/exec')
+    const apiKey = import.meta.env.VITE_API_KEY_MEMBER;
+    fetch(`${apiUrl}${apiKey}`)
       .then(response => response.json())
       .then(data => {
         setEmployees(data);
@@ -45,16 +46,15 @@ function VegetableResultReport() {
     setLoading(true); // Set loading state to true before fetching data
 
     // Construct the API URL with parameters
-    let apiUrl = 'https://script.google.com/macros/s/AKfycby9Ghx-4BZ0aiFLwDQu95H-tebWhzGf_P8nH1iy_2-X0Vp9rG5bGuq3CeVJwxGohNdy/exec';
-    apiUrl += `?empId=${encodeURIComponent(empId.trim().toUpperCase())}`;
-    apiUrl += `&startDate=${encodeURIComponent(startDate.trim())}`;
-    apiUrl += `&endDate=${encodeURIComponent(endDate.trim())}`;
-
+    let apiKey = import.meta.env.VITE_API_KEY_PICKRECORD;
+    apiKey += `?empId=${encodeURIComponent(empId.trim().toUpperCase())}`;
+    apiKey += `&startDate=${encodeURIComponent(startDate.trim())}`;
+    apiKey += `&endDate=${encodeURIComponent(endDate.trim())}`;
+  
     // Make a fetch request to the API
-    fetch(apiUrl)
+    fetch(`${apiUrl}${apiKey}`)
       .then(response => response.json())
       .then(data => {
-
         const reduceData = data.reduce((acc, item) => {
           const { วันที่เด็ด, ประเภทผัก, น้ำหนัก } = item;
           const key = `${วันที่เด็ด}_${ประเภทผัก}`;
@@ -74,7 +74,7 @@ function VegetableResultReport() {
 
         data = Object.values(reduceData);
         
-        const result = data.map((e, i) => {
+        let result = data.map((e, i) => {
           return {
             date: e['วันที่เด็ด'],
             vegetable: e['ประเภทผัก'],
