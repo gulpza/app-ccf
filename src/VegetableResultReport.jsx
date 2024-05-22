@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Spinner } from 'react-bootstrap';
 
 function formatDate(date) {
   const year = date.getFullYear();
@@ -9,15 +10,32 @@ function formatDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-function EmployeeTable() {
+function VegetableResultReport() {
   const [filteredData, setFilteredData] = useState([]);
   const [empId, setEmpId] = useState('');
+  const [employees, setEmployees] = useState([]);
   const [filterDate, setFilterDate] = useState(formatDate(new Date())); // Set default date to today
   const [loading, setLoading] = useState(false); // State variable for loading indicator
 
+  // Fetch employee data when the component mounts
   useEffect(() => {
-    // Automatically filter data when the component mounts if needed
-  }, []); // Empty dependency array to run the effect only once when the component mounts
+    handleEmployees();
+  }, []);
+
+  const handleEmployees = () => { 
+    setLoading(true);
+    fetch('https://script.google.com/macros/s/AKfycbxONu0P-iT_NyQzh_-MMEdSFQBKzFhKAoZuHNeYpBv7xHwkhSU2fBfLLI37tOZ6H4hI/exec')
+      .then(response => response.json())
+      .then(data => {
+        setEmployees(data);
+      })
+      .catch(error => {
+        console.error('Error fetching employee data:', error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   // Function to handle filtering
   const handleFilter = () => {
@@ -43,11 +61,12 @@ function EmployeeTable() {
           }
         });
         setFilteredData(result);
-        setLoading(false); // Set loading state to false after fetching data
       })
       .catch(error => {
         console.error('Error fetching data:', error);
-        setLoading(false); // Set loading state to false in case of an error
+      })
+      .finally(() => {
+        setLoading(false); // Set loading state to false after fetching data
       });
   };
 
@@ -60,16 +79,22 @@ function EmployeeTable() {
 
   return (
     <div className="container mt-4">
-      <div className="mb-3">
-        <label htmlFor="empId" className="form-label">รหัสพนักงาน:</label>
-        <input
-          type="text"
+      <div className="mb-6">
+        <label htmlFor="empId" className="form-label">พนักงาน:</label>
+        <select
           id="empId"
-          className="form-control"
+          className="form-select"
           value={empId}
           required
           onChange={(e) => setEmpId(e.target.value)}
-        />
+        >
+          <option value="">เลือกพนักงาน</option>
+          {employees.map((employee) => (
+            <option key={employee['รหัสพนักงาน']} value={employee['รหัสพนักงาน']}>
+              {employee['ชื่อพนักงาน']} {employee['นามสกุล']}  {'('}{employee['ชื่อเล่น']}{')'}
+            </option>
+          ))}
+        </select>
         <label htmlFor="filterDate" className="form-label mt-3">วันที่เด็ด:</label>
         <input
           type="date"
@@ -79,29 +104,28 @@ function EmployeeTable() {
           onChange={(e) => setFilterDate(e.target.value)}
         />
         <button
-          className="btn btn-primary mt-3 me-2"
+          className="btn btn-primary mt-3 mb-3 btn-lg btn-block me-3"
           onClick={handleFilter}
           disabled={!empId || !filterDate}
         >
           ค้นหา
         </button>
-        <button className="btn btn-secondary mt-3" onClick={handleReset}>รีเซ็ต</button>
+        <button className="btn btn-secondary mt-3 mb-3 ml-3 btn-lg btn-block" onClick={handleReset}>รีเซ็ต</button>
       </div>
-      {/* Display loading indicator if loading state is true */}
-      {loading && (
-        <div className="d-flex justify-content-center my-3">
-          <div className="spinner-border text-primary" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
-      )}
-      <table className="table table-bordered">
+      <Modal show={loading} centered>
+        <Modal.Body className="text-center">
+          <Spinner animation="border" role="status">
+            <span className="sr-only"></span>
+          </Spinner>
+          <p>Loading...</p>
+        </Modal.Body>
+      </Modal>
+      <table className="table table-striped">
         <thead className="thead-light">
           <tr>
-            <th>ลำดับ</th>
-            <th>ไร่</th>
-            <th>ผัก</th>
-            <th>จำนวน</th>
+            <th scope="col">ลำดับ</th>
+            <th scope="col">ผัก</th>
+            <th scope="col">จำนวน</th>
           </tr>
         </thead>
         <tbody>
@@ -109,8 +133,7 @@ function EmployeeTable() {
             filteredData.map((item, index) => (
               <tr key={index}>
                 <td>{item.no}</td>
-                <td>{item.farmName}</td>
-                <td>{item.vegetable}</td>
+                <td style={{ textAlign: 'left' }}>{item.vegetable}</td>
                 <td>{item.qty}</td>
               </tr>
             ))
@@ -125,4 +148,4 @@ function EmployeeTable() {
   );
 }
 
-export default EmployeeTable;
+export default VegetableResultReport;
