@@ -11,14 +11,14 @@ function formatDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-function VegetableResultReport() {
+function PickRecord() {
   const [filteredData, setFilteredData] = useState([]);
   const [empId, setEmpId] = useState('');
   const [employees, setEmployees] = useState([]);
   const [startDate, setStartDate] = useState(formatDate(new Date())); // Start date default to today
   const [endDate, setEndDate] = useState(formatDate(new Date())); // End date default to today
   const [loading, setLoading] = useState(false); // State variable for loading indicator
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   // Fetch employee data when the component mounts
   useEffect(() => {
@@ -27,8 +27,7 @@ function VegetableResultReport() {
 
   const handleMember = () => { 
     setLoading(true);
-    const apiKey = import.meta.env.VITE_API_KEY_MEMBER;
-    fetch(`${apiUrl}${apiKey}`)
+    fetch(`${apiKey}?action=member`)
       .then(response => response.json())
       .then(data => {
         setEmployees(data);
@@ -46,13 +45,13 @@ function VegetableResultReport() {
     setLoading(true); // Set loading state to true before fetching data
 
     // Construct the API URL with parameters
-    let apiKey = import.meta.env.VITE_API_KEY_PICKRECORD;
-    apiKey += `?empId=${encodeURIComponent(empId.trim().toUpperCase())}`;
-    apiKey += `&startDate=${encodeURIComponent(startDate.trim())}`;
-    apiKey += `&endDate=${encodeURIComponent(endDate.trim())}`;
+    let params = "?action=pickrecord";
+    params += `&empId=${encodeURIComponent(empId.trim().toUpperCase())}`;
+    params += `&startDate=${encodeURIComponent(startDate.trim())}`;
+    params += `&endDate=${encodeURIComponent(endDate.trim())}`;
   
     // Make a fetch request to the API
-    fetch(`${apiUrl}${apiKey}`)
+    fetch(`${apiKey}${params}`)
       .then(response => response.json())
       .then(data => {
         const reduceData = data.reduce((acc, item) => {
@@ -104,6 +103,7 @@ function VegetableResultReport() {
 
   return (
     <div className="container mt-4">
+       <h2 className="text-center">รายงานเด็ด</h2>
       <div className="mb-6">
         <label htmlFor="empId" className="form-label">พนักงาน:</label>
         <select
@@ -181,4 +181,4 @@ function VegetableResultReport() {
   );
 }
 
-export default VegetableResultReport;
+export default PickRecord;
