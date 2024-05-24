@@ -11,7 +11,7 @@ function formatDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-function PickFarm() {
+function PickDailyFarmVeg() {
   const [filteredData, setFilteredData] = useState([]);
   const [farmCode, setFarmCode] = useState('');
   const [farms, setFarms] = useState([]);
@@ -21,7 +21,6 @@ function PickFarm() {
   const [endDate, setEndDate] = useState(formatDate(new Date())); // End date default to today
   const [loading, setLoading] = useState(false); // State variable for loading indicator
   const apiKey = import.meta.env.VITE_API_KEY;
-
 
   useEffect(() => {
     handleInitialLoad();
@@ -77,7 +76,6 @@ function PickFarm() {
     fetch(`${apiKey}${params}`)
       .then(response => response.json())
       .then(data => {
-
         const result = {};
 
         data.forEach(entry => {
@@ -105,7 +103,6 @@ function PickFarm() {
         const res = Object.values(result).flatMap(dateGroup => Object.values(dateGroup));
         res.sort((a, b) => new Date(a.date) - new Date(b.date));
         setFilteredData(res);
-
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -119,6 +116,8 @@ function PickFarm() {
   const handleReset = () => {
     setStartDate(formatDate(new Date()));
     setEndDate(formatDate(new Date()));
+    setFarmCode('');
+    setVegTypeCode('');
     setFilteredData([]);
   };
 
@@ -143,28 +142,30 @@ function PickFarm() {
           onChange={(e) => setEndDate(e.target.value)}
         />
         <label htmlFor="farmSelect" className="form-label mt-3 me-3">ไร่:</label>
-          <select
-            id="farmSelect"
-            className="form-select me-3"
-            onChange={(e) => setFarmCode(e.target.value)} // Handle farm selection
-          >
-            <option value="">เลือกไร่</option>
-            {farms.map((farm) => (
-              <option key={farm['Code']} value={farm['FarmName']}>{farm['FarmName']}</option>
-            ))}
-          </select>
+        <select
+          id="farmSelect"
+          className="form-select me-3"
+          value={farmCode}
+          onChange={(e) => setFarmCode(e.target.value)}
+        >
+          <option value="">เลือกไร่</option>
+          {farms.map((farm) => (
+            <option key={farm['Code']} value={farm['FarmName']}>{farm['FarmName']}</option>
+          ))}
+        </select>
 
-          <label htmlFor="vegTypeSelect" className="form-label mt-3 me-3">ประเภทผัก:</label>
-          <select
-            id="vegTypeSelect"
-            className="form-select me-3"
-            onChange={(e) => setVegTypeCode(e.target.value)} // Handle farm selection
-          >
-            <option value="">เลือกประเภทผัก</option>
-            {vegTypes.map((vegType) => (
-              <option key={vegType['Code']} value={vegType['TypeName']}>{vegType['TypeName']}</option>
-            ))}
-          </select>
+        <label htmlFor="vegTypeSelect" className="form-label mt-3 me-3">ประเภทผัก:</label>
+        <select
+          id="vegTypeSelect"
+          className="form-select me-3"
+          value={vegTypeCode}
+          onChange={(e) => setVegTypeCode(e.target.value)}
+        >
+          <option value="">เลือกประเภทผัก</option>
+          {vegTypes.map((vegType) => (
+            <option key={vegType['Code']} value={vegType['TypeName']}>{vegType['TypeName']}</option>
+          ))}
+        </select>
         <button
           className="btn btn-primary mt-3 mb-3 btn-lg btn-block me-3"
           onClick={handleFilter}
@@ -212,4 +213,4 @@ function PickFarm() {
   );
 }
 
-export default PickFarm;
+export default PickDailyFarmVeg;

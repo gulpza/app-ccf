@@ -11,7 +11,7 @@ function formatDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-function PickRecord() {
+function PickDailyMemberRecord() {
   const [filteredData, setFilteredData] = useState([]);
   const [empId, setEmpId] = useState('');
   const [employees, setEmployees] = useState([]);
@@ -30,7 +30,18 @@ function PickRecord() {
     fetch(`${apiKey}?action=member`)
       .then(response => response.json())
       .then(data => {
-        setEmployees(data);
+        const sortedData = data.sort((a, b) => {
+          const nameA = a['ชื่อพนักงาน'].toUpperCase(); // Ignore case
+          const nameB = b['ชื่อพนักงาน'].toUpperCase(); // Ignore case
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          return 0;
+        });
+        setEmployees(sortedData);
       })
       .catch(error => {
         console.error('Error fetching employee data:', error);
@@ -103,7 +114,7 @@ function PickRecord() {
 
   return (
     <div className="container mt-4">
-       <h2 className="text-center">รายงานเด็ด</h2>
+       <h2 className="text-center">รายงานจำนวนการเด็ด</h2>
       <div className="mb-6">
         <label htmlFor="empId" className="form-label">พนักงาน:</label>
         <select
@@ -116,7 +127,7 @@ function PickRecord() {
           <option value="">เลือกพนักงาน</option>
           {employees.map((employee) => (
             <option key={employee['รหัสพนักงาน']} value={employee['รหัสพนักงาน']}>
-              {employee['ชื่อพนักงาน']} {employee['นามสกุล']}  {'('}{employee['ชื่อเล่น']}{')'}
+              {employee['ชื่อพนักงาน']} {employee['นามสกุล']}  {'('}{employee['ชื่อเล่น'] || '-'}{')'}
             </option>
           ))}
         </select>
@@ -181,4 +192,4 @@ function PickRecord() {
   );
 }
 
-export default PickRecord;
+export default PickDailyMemberRecord;

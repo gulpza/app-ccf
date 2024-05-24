@@ -50,3 +50,17 @@ body{
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+
+.disabled-link {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.custom-react-select .select__single-value {
+  text-align: left;
+}
+
+.custom-react-select .select__single-value,
+.custom-react-select .select__placeholder {
+  text-align: left;
+}
