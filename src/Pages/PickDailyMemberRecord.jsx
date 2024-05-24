@@ -127,7 +127,7 @@ function PickDailyMemberRecord() {
           <option value="">เลือกพนักงาน</option>
           {employees.map((employee) => (
             <option key={employee['รหัสพนักงาน']} value={employee['รหัสพนักงาน']}>
-              {employee['ชื่อพนักงาน']} {employee['นามสกุล']}  {'('}{employee['ชื่อเล่น'] || '-'}{')'}
+              {employee['ชื่อพนักงาน']} {employee['นามสกุล']}  {'('}{employee['ชื่อเล่น'] || ''}{')'}
             </option>
           ))}
         </select>

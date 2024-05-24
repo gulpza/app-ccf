@@ -15,7 +15,7 @@ const Home = () => {
           </Link>
         </div>
         <div className="col-md-6">
-          <Link to="/pick-daily-farm" className="card text-center  disabled-link">
+          <Link to="/pick-daily-farm" className="card text-center ">
             <div className="card-body">
               <i className="fas fa-calendar-day fa-3x mb-3"></i>
               <h5 className="card-title">จำนวนการเด็ดแต่ละวัน</h5>
@@ -23,7 +23,7 @@ const Home = () => {
           </Link>
         </div>
         <div className="col-md-6">
-          <Link to="/pick-daily-member-price" className="card text-center disabled-link">
+          <Link to="/pick-daily-member-price" className="card text-center">
             <div className="card-body">
               <i className="fas fa-user fa-3x mb-3"></i>
               <h5 className="card-title">จำนวนการเด็ดแต่ละคนในแต่ละวัน</h5>

@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import { HashRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
-import Home from './Home';
-import PickDailyMemberRecord from './PickDailyMemberRecord';
-import PickDailyFarm from './PickDailyFarm';
-import PickDailyMemberPrice from './PickDailyMemberPrice';
-import PickDailyFarmVeg from './PickDailyFarmVeg';
+import Home from './Pages/Home';
+import PickDailyMemberRecord from './Pages/PickDailyMemberRecord';
+import PickDailyFarm from './Pages/PickDailyFarm';
+import PickDailyMemberPrice from './Pages/PickDailyMemberPrice';
+import PickDailyFarmVeg from './Pages/PickDailyFarmVeg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
         </div>
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/home" element={<Home />} /> */}
           <Route path="/pick-daily-member-record" element={<PickDailyMemberRecord />} />
           <Route path="/pick-daily-farm" element={<PickDailyFarm />} />
           <Route path="/pick-daily-member-price" element={<PickDailyMemberPrice />} />
