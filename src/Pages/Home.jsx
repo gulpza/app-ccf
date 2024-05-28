@@ -33,8 +33,16 @@ const Home = () => {
         <div className="col-md-6">
           <Link to="/pick-daily-farm-veg" className="card text-center">
             <div className="card-body">
-              <i className="fas fa-tractor fa-3x mb-3"></i>
+              <i className="fa-solid fa-seedling fa-3x mb-3"></i>
               <h5 className="card-title">จำนวนของแต่ละไร่</h5>
+            </div>
+          </Link>
+        </div> 
+        <div className="col-md-6">
+          <Link to="/daily-shipping" className="card text-center">
+            <div className="card-body">
+              <i className="fa-solid fa-truck-fast fa-3x mb-3"></i>
+              <h5 className="card-title">รายการส่งสินค้าประจำวัน</h5>
             </div>
           </Link>
         </div>

@@ -30,17 +30,7 @@ function PickDailyMemberRecord() {
     fetch(`${apiKey}?action=member`)
       .then(response => response.json())
       .then(data => {
-        const sortedData = data.sort((a, b) => {
-          const nameA = a['ชื่อพนักงาน'].toUpperCase(); // Ignore case
-          const nameB = b['ชื่อพนักงาน'].toUpperCase(); // Ignore case
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
-          return 0;
-        });
+        const sortedData = data.sort((a, b) => a['รหัสพนักงาน'].toUpperCase() - b['รหัสพนักงาน'].toUpperCase());
         setEmployees(sortedData);
       })
       .catch(error => {
@@ -127,7 +117,7 @@ function PickDailyMemberRecord() {
           <option value="">เลือกพนักงาน</option>
           {employees.map((employee) => (
             <option key={employee['รหัสพนักงาน']} value={employee['รหัสพนักงาน']}>
-              {employee['ชื่อพนักงาน']} {employee['นามสกุล']}  {'('}{employee['ชื่อเล่น'] || ''}{')'}
+              {employee['ชื่อพนักงาน']} {employee['นามสกุล']} {employee['รหัสพนักงาน']}  {'('}{employee['ชื่อเล่น'] || ''}{')'}
             </option>
           ))}
         </select>

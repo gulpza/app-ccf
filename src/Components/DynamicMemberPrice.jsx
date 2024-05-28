@@ -32,9 +32,17 @@ const DynamicMemberPrice = ({ data }) => {
   const { pivot, prices, employees } = pivotData(data);
 
   // Calculate the total for each price
-  const totals = prices.map(price => 
+  const priceTotals = prices.map(price => 
     employees.reduce((sum, employee) => sum + pivot[employee][price], 0).toFixed(2)
   );
+
+  // Calculate the total for each employee
+  const employeeTotals = employees.map(employee => 
+    prices.reduce((sum, price) => sum + pivot[employee][price], 0).toFixed(2)
+  );
+
+  // Calculate the grand total for the footer
+  const grandTotal = priceTotals.reduce((sum, total) => sum + parseFloat(total), 0).toFixed(2);
 
   return (
     <div className="container">
@@ -45,24 +53,27 @@ const DynamicMemberPrice = ({ data }) => {
             {prices.map(price => (
               <th key={price}>{price}</th>
             ))}
+            <th className="border-left">รวม</th>
           </tr>
         </thead>
         <tbody>
-          {employees.map(employee => (
+          {employees.map((employee, employeeIndex) => (
             <tr key={employee}>
               <td>{employee}</td>
               {prices.map(price => (
-                <td key={price} className="text-right">{pivot[employee][price].toFixed(2)}</td>
+                <td key={price}>{pivot[employee][price].toFixed(2)}</td>
               ))}
+              <td className="border-left"><strong>{employeeTotals[employeeIndex]}</strong></td>
             </tr>
           ))}
         </tbody>
         <tfoot>
           <tr>
             <td><strong>รวม</strong></td>
-            {totals.map((total, index) => (
-              <td key={prices[index]} className="text-right"><strong>{total}</strong></td>
+            {priceTotals.map((total, index) => (
+              <td key={prices[index]}><strong>{total}</strong></td>
             ))}
+            <td className="border-left"><strong>{grandTotal}</strong></td>
           </tr>
         </tfoot>
       </table>
