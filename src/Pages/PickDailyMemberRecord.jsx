@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Spinner } from 'react-bootstrap';
 import moment from 'moment';
+import Enum from '../Helpper/Enum';
 
 function formatDate(date) {
   const year = date.getFullYear();
@@ -18,7 +20,7 @@ function PickDailyMemberRecord() {
   const [startDate, setStartDate] = useState(formatDate(new Date())); // Start date default to today
   const [endDate, setEndDate] = useState(formatDate(new Date())); // End date default to today
   const [loading, setLoading] = useState(false); // State variable for loading indicator
-  const apiKey = import.meta.env.VITE_API_KEY;
+  const apiKey = import.meta.env.VITE_SHEET_PICK_API_KEY;
 
   // Fetch employee data when the component mounts
   useEffect(() => {
@@ -104,6 +106,9 @@ function PickDailyMemberRecord() {
 
   return (
     <div className="container mt-4">
+       <Link  to="/home" >
+          <img src={Enum.URL_LOGO} alt="Company Logo" className="img-fluid" style={{ maxWidth: '150px' }} />
+        </Link>
        <h2 className="text-center">รายงานจำนวนการเด็ด</h2>
       <div className="mb-6">
         <label htmlFor="empId" className="form-label">พนักงาน:</label>

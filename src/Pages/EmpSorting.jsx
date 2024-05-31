@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Spinner } from 'react-bootstrap';
-import moment from 'moment';
-import DynamicTable from '../Components/DynamicFarm';
+import DynamicEmpSorting from '../Components/DynamicEmpSorting';
 import Enum from '../Helpper/Enum';
 
 function formatDate(date) {
@@ -14,15 +13,16 @@ function formatDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-function PickDailyFarm() {
+function EmpSorting() {
   const [filteredData, setFilteredData] = useState([]);
   const [startDate, setStartDate] = useState(formatDate(new Date())); // Start date default to today
-  const [endDate, setEndDate] = useState(formatDate(new Date())); // End date default to today
+  //const [endDate, setEndDate] = useState(formatDate(new Date())); // End date default to today
   const [loading, setLoading] = useState(false); // State variable for loading indicator
-  const apiKey = import.meta.env.VITE_SHEET_PICK_API_KEY;
+  const apiKey = import.meta.env.VITE_SHEET_SORTING_API_KEY;
 
   // Fetch employee data when the component mounts
   useEffect(() => {
+   
   }, []);
 
   // Function to handle filtering
@@ -30,9 +30,9 @@ function PickDailyFarm() {
     setLoading(true); // Set loading state to true before fetching data
 
     // Construct the API URL with parameters
-    let params = "?action=pickrecord";
+    let params = "?action=sorting";
     params += `&startDate=${encodeURIComponent(startDate.trim())}`;
-    params += `&endDate=${encodeURIComponent(endDate.trim())}`;
+    params += `&endDate=${encodeURIComponent(startDate.trim())}`;
   
     // Make a fetch request to the API
     fetch(`${apiKey}${params}`)
@@ -58,12 +58,12 @@ function PickDailyFarm() {
 
   return (
     <div className="container mt-4">
-      <Link to="/home" >
+             <Link >
           <img src={Enum.URL_LOGO} alt="Company Logo" className="img-fluid" style={{ maxWidth: '150px' }} />
         </Link>
-       <h2 className="text-center">จำนวนการเด็ดแต่ละวัน</h2>
+       <h2 className="text-center">บันทึกพนักงานคัด</h2>
       <div className="mb-6">
-        <label htmlFor="startDate" className="form-label mt-3 me-3">วันที่เริ่ม:</label>
+        <label htmlFor="startDate" className="form-label mt-3 me-3">วันที่:</label>
 <input
   type="date"
   id="startDate"
@@ -71,18 +71,10 @@ function PickDailyFarm() {
   value={startDate}
   onChange={(e) => setStartDate(e.target.value)}
 />
-<label htmlFor="endDate" className="form-label mt-3 me-3">สิ้นสุด:</label>
-<input
-  type="date"
-  id="endDate"
-  className="form-control me-3"
-  value={endDate}
-  onChange={(e) => setEndDate(e.target.value)}
-/>
         <button
           className="btn btn-primary mt-3 mb-3 btn-lg btn-block me-3"
           onClick={handleFilter}
-          disabled={!startDate || !endDate}
+          disabled={!startDate}
         >
           ค้นหา
         </button>
@@ -97,10 +89,10 @@ function PickDailyFarm() {
         </Modal.Body>
       </Modal>
 
-      <DynamicTable data={filteredData} />
+      <DynamicEmpSorting data={filteredData} />
      
     </div>
   );
 }
 
-export default PickDailyFarm;
+export default EmpSorting;
