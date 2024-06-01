@@ -192,7 +192,7 @@ function PickDailyFarmVeg() {
         <thead className="thead-light">
           <tr>
             <th scope="col">วันที่รับผัก</th>
-            <th scope="col">ชื่อไร่</th>
+            <th scope="col">ไร่</th>
             <th scope="col">ประเภทผัก</th>
             <th scope="col">น้ำหนักรวม</th>
           </tr>

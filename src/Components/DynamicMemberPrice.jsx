@@ -46,10 +46,11 @@ const DynamicMemberPrice = ({ data }) => {
 
   return (
     <div className="container">
+       <div className="table-responsive">
       <table className="table table-striped">
         <thead className="thead-light">
           <tr>
-            <th>พนักงาน / ราคา</th>
+            <th>พนักงาน/ราคา</th>
             {prices.map(price => (
               <th key={price}>{price}</th>
             ))}
@@ -77,6 +78,7 @@ const DynamicMemberPrice = ({ data }) => {
           </tr>
         </tfoot>
       </table>
+      </div>
     </div>
   );
 };

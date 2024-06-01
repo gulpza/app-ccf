@@ -47,7 +47,8 @@ const DynamicEmpSorting = ({ data }) => {
 
   return (
     <div className="container">
-      <table className="table table-striped">
+      <div className="table-responsive">
+      <table className="table table-responsive">
         <thead className="thead-light">
           <tr>
             <th>พนักงาน / เบรค</th>
@@ -78,7 +79,7 @@ const DynamicEmpSorting = ({ data }) => {
           </tr>
         </tfoot>
       </table>
-
+      </div>
       {(
         <ResponsiveContainer width="100%" height={400}>
           <BarChart layout="vertical" data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
@@ -93,6 +94,7 @@ const DynamicEmpSorting = ({ data }) => {
           </BarChart>
         </ResponsiveContainer>
       )}
+      
     </div>
   );
 };

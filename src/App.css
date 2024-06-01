@@ -75,6 +75,10 @@ body{
   text-align: right;
 }
 
+.table-responsive {
+  overflow-x: auto;
+}
+
 /* .border-left {
   border-left: 1px solid #545454;
 } */

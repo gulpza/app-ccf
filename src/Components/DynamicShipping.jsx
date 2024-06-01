@@ -43,6 +43,7 @@ const DynamicShipping = ({ data }) => {
 
   return (
     <div className="container">
+       <div className="table-responsive">
       <table className="table table-striped">
         <thead className="thead-light">
           <tr>
@@ -74,6 +75,7 @@ const DynamicShipping = ({ data }) => {
           </tr>
         </tfoot>
       </table>
+      </div>
     </div>
   );
 };

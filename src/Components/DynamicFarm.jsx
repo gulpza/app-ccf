@@ -4,7 +4,7 @@ import moment from 'moment';
 
 const pivotData = (data) => {
   const pivot = {};
-  const dates = [...new Set(data.map(item => moment(item['วันที่เด็ด']).format('DD/MM/YYYY')))].sort();
+  const dates = [...new Set(data.map(item => moment(item['วันที่เด็ด']).format('DD/MM')))].sort();
 
   // Extract unique farm names and sort them
   const farms = [...new Set(data.map(item => item['ชื่อไร่']))].sort();
@@ -14,7 +14,7 @@ const pivotData = (data) => {
   });
 
   data.forEach(item => {
-    const date = moment(item['วันที่เด็ด']).format('DD/MM/YYYY');
+    const date = moment(item['วันที่เด็ด']).format('DD/MM');
     const farm = item['ชื่อไร่'];
     const weight = item['น้ำหนัก'];
 
@@ -39,10 +39,11 @@ const DynamicFarm = ({ data }) => {
 
   return (
     <div className="container">
+       <div className="table-responsive">
       <table className="table table-striped">
         <thead className="thead-light">
           <tr>
-            <th>ชื่อไร่ / วันที่เด็ด</th>
+            <th>ไร่/วันที่</th>
             {dates.map(date => (
               <th key={date}>{date}</th>
             ))}
@@ -67,6 +68,7 @@ const DynamicFarm = ({ data }) => {
           </tr>
         </tfoot>
       </table>
+      </div>
     </div>
   );
 };
