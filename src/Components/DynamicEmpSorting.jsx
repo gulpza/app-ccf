@@ -30,6 +30,24 @@ const pivotData = (data) => {
   return { pivot, shifts: allShifts, employees: allEmployees, totals };
 };
 
+const CustomYAxisTick = ({ x, y, payload, onClick }) => {
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <text
+        x={0}
+        y={0}
+        dy={16}
+        textAnchor="end"
+        fill="#666"
+        onClick={() => onClick(payload.value)}
+        style={{ cursor: 'pointer' }}
+      >
+        {payload.value}
+      </text>
+    </g>
+  );
+};
+
 const DynamicEmpSorting = ({ data }) => {
   const { pivot, shifts, employees, totals } = pivotData(data);
   const [visibleShifts, setVisibleShifts] = useState(shifts.reduce((acc, shift) => ({ ...acc, [shift]: true }), {}));
@@ -88,11 +106,18 @@ const DynamicEmpSorting = ({ data }) => {
 
 
 
-      <ResponsiveContainer width="100%" height={400}>
-        <BarChart layout="vertical" data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+      <ResponsiveContainer width="100%" height={600}>
+        <BarChart layout="vertical" data={chartData} margin={{ top: 20, right: 10, left: 10, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis type="number" />
-          <YAxis type="category" dataKey="name" />
+          <YAxis 
+            type="category" 
+            dataKey="name" 
+            width={120}
+            interval={0}
+            tickMargin={5}
+            tick={{ angle: 0, textAnchor: 'end' }} 
+          />
           <Tooltip />
           <Legend />
           {shifts.map((shift, index) => (
