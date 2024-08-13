@@ -17,11 +17,16 @@ const pivotData = (data) => {
     const date = moment(item['วันที่เด็ด']).format('DD/MM');
     const farm = item['ชื่อไร่'];
     const vegetableType = item['ประเภทผัก'];
+    const dateRawMat = moment(item['วันที่รับผัก']).format('DD/MM');
     const weight = item['น้ำหนัก'];
 
     if (!pivot[farm][vegetableType]) {
-      pivot[farm][vegetableType] = {};
+      pivot[farm][vegetableType] = {
+        dates: {},
+        dateRawMat,
+      };
     }
+
 
     if (!pivot[farm][vegetableType][date]) {
       pivot[farm][vegetableType][date] = 0;
@@ -52,6 +57,7 @@ const DynamicFarm = ({ data }) => {
             <tr>
               <th>ไร่</th>
               <th>ประเภทผัก</th>
+              <th>วันที่รับผัก</th>
               {dates.map(date => (
                 <th key={date}>{date}</th>
               ))}
@@ -64,6 +70,7 @@ const DynamicFarm = ({ data }) => {
                 <tr key={`${farm}-${vegType}-${index}`}>
                   {<td>{farm}</td>}
                   <td>{vegType}</td>
+                  <td>{pivot[farm][vegType].dateRawMat}</td>
                   {dates.map(date => (
                     <td key={date}>
                       {pivot[farm][vegType][date]
@@ -77,6 +84,7 @@ const DynamicFarm = ({ data }) => {
           </tbody>
           <tfoot>
             <tr>
+              <td></td>
               <td></td>
               <td><strong>รวม</strong></td>
               {dates.map(date => (

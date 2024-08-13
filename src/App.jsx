@@ -8,6 +8,7 @@ import PickDailyFarmVeg from './Pages/PickDailyFarmVeg';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import DailyShipping from './Pages/DailyShipping';
 import EmpSorting from './Pages/EmpSorting';
+import HairRolling from './Pages/HairRolling';
 
 function App() {
   // const logoUrl = 'https://chaicharoenfresh.com/wp-content/uploads/2024/03/cropped-logo-ccf-300x300.png';
@@ -28,6 +29,7 @@ function App() {
           <Route path="/pick-daily-farm-veg" element={<PickDailyFarmVeg />} />
           <Route path="/daily-shipping" element={<DailyShipping />} />
           <Route path="/emp-sorting" element={<EmpSorting />} />
+          <Route path="/hair-rolling" element={<HairRolling />} />
         </Routes>
       </div>
     </Router>

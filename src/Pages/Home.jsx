@@ -50,6 +50,14 @@ const Home = () => {
             </div>
           </Link>
         </div>
+        <div className="col-md-6">
+          <Link to="/hair-rolling" className="card text-center">
+            <div className="card-body">
+              <i className="fa-solid fas fa-wind fa-3x mb-3"></i>
+              <h5 className="card-title">HairRolling</h5>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );
