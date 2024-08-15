@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList } from 'recharts';
 
 const DynamicHairRolling = ({ data }) => {
+  const dataLength = data.length;
+  const chartHeight = dataLength * (dataLength < 10 ? 60 : 30);
   // Calculate total count per employee
   const aggregatedData = data.reduce((acc, curr) => {
     const employeeName = `${curr['ชื่อพนักงาน']}`;
@@ -53,20 +55,20 @@ const DynamicHairRolling = ({ data }) => {
       </div>
 
       <div className="chart-container mt-4">
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={chartHeight}>
           <BarChart
             data={tableData}
             layout="vertical"
-            margin={{ top: 20, right: 10, left: 10, bottom: 5 }}
+            margin={{ top: 10, right: 20, left: 10, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis type="number" />
             <YAxis 
               type="category" 
               dataKey="employeeName" 
-              width={120}
+              width={100}
               interval={0}
-              tickMargin={5}
+              tickMargin={10}
               tick={{ angle: 0, textAnchor: 'end' }} 
             />
             <Tooltip />

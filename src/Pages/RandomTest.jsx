@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Spinner } from 'react-bootstrap';
-import DynamicHairRolling from '../Components/DynamicHairRolling';
+import DynamicRandomTest from '../Components/DynamicRandomTest';
 import Enum from '../Helpper/Enum';
 
 function formatDate(date) {
@@ -13,7 +13,7 @@ function formatDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-function HairRolling() {
+function RandomTest() {
   const [filteredData, setFilteredData] = useState([]);
   const [startDate, setStartDate] = useState(formatDate(new Date())); // Start date default to today
   const [endDate, setEndDate] = useState(formatDate(new Date())); // End date default to today
@@ -30,7 +30,7 @@ function HairRolling() {
     setLoading(true); // Set loading state to true before fetching data
 
     // Construct the API URL with parameters
-    let params = "?action=hairRolling";
+    let params = "?action=randomTest";
     params += `&startDate=${encodeURIComponent(startDate.trim())}`;
     params += `&endDate=${encodeURIComponent(endDate.trim())}`;
   
@@ -61,9 +61,9 @@ function HairRolling() {
              <Link >
           <img src={Enum.URL_LOGO} alt="Company Logo" className="img-fluid" style={{ maxWidth: '150px' }} />
         </Link>
-       <h2 className="text-center">Hair Rolling</h2>
+       <h2 className="text-center">Random Test</h2>
       <div className="mb-6">
-      <label htmlFor="startDate" className="form-label mt-3 me-3">วันที่กลิ้งเริ่ม:</label>
+      <label htmlFor="startDate" className="form-label mt-3 me-3">วันที่สุ่มเริ่ม:</label>
 <input
   type="date"
   id="startDate"
@@ -97,10 +97,10 @@ function HairRolling() {
         </Modal.Body>
       </Modal>
 
-      <DynamicHairRolling data={filteredData} />
-     
+      <DynamicRandomTest data={filteredData} />
+      
     </div>
   );
 }
 
-export default HairRolling;
+export default RandomTest;

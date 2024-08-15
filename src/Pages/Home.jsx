@@ -54,7 +54,15 @@ const Home = () => {
           <Link to="/hair-rolling" className="card text-center">
             <div className="card-body">
               <i className="fa-solid fas fa-wind fa-3x mb-3"></i>
-              <h5 className="card-title">HairRolling</h5>
+              <h5 className="card-title">Hair Rolling</h5>
+            </div>
+          </Link>
+        </div>
+        <div className="col-md-6">
+          <Link to="/random-test" className="card text-center">
+            <div className="card-body">
+              <i className="fa-solid fas fa-shuffle fa-3x mb-3"></i>
+              <h5 className="card-title">Random Test</h5>
             </div>
           </Link>
         </div>
