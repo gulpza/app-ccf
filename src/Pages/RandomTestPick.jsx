@@ -38,9 +38,7 @@ function RandomTestPick() {
     fetch(`${apiKey}${params}`)
       .then(response => response.json())
       .then(data => {
-
-       setFilteredData(data);
-
+        setFilteredData(data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);

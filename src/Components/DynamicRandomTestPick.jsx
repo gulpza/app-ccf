@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import moment from 'moment';
 
 const DynamicRandomTestPick = ({ data }) => {
   const chartHeight = data.length * (data.length < 10 ? 80 : 50);
@@ -8,6 +9,7 @@ const DynamicRandomTestPick = ({ data }) => {
   // Convert the original data into the format needed for the table and chart
   const tableData = data.map((item) => ({
     employeeName: `${item['ชื่อพนักงาน']} ${item['นามสกุล']}`.trim(),
+    randomDate:  moment(item['วันที่สุ่ม']).format('DD-MM-YYYY'),
     cluster: item['เป็นช่อ'] == true ? 1 : 0,
     longStemmed: item['ก้านยาว'] == true ? 1 : 0,
     tornLeaves: item['ใบขาด'] == true ? 1 : 0,
@@ -35,13 +37,28 @@ const DynamicRandomTestPick = ({ data }) => {
   );
 
   // Prepare data for the chart
-  const chartData = tableData.map((row) => ({
-    employeeName: row.employeeName,
-    cluster: row.cluster,
-    longStemmed: row.longStemmed,
-    tornLeaves: row.tornLeaves,
-    stickTok: row.stickTok
+
+  const groupChartData = tableData.reduce((acc, row) => {
+    const { employeeName, cluster, longStemmed, tornLeaves, stickTok } = row;
+    
+    if (!acc[employeeName]) {
+      acc[employeeName] = { cluster: 0, longStemmed: 0, tornLeaves: 0, stickTok: 0 };
+    }
+    
+    acc[employeeName].cluster += cluster;
+    acc[employeeName].longStemmed += longStemmed;
+    acc[employeeName].tornLeaves += tornLeaves;
+    acc[employeeName].stickTok += stickTok;
+    
+    return acc;
+  }, {});
+  
+  // Convert the result to an array
+  const chartData = Object.keys(groupChartData).map(employeeName => ({
+    employeeName,
+    ...groupChartData[employeeName]
   }));
+
 
   return (
     <div className="container">
@@ -50,6 +67,7 @@ const DynamicRandomTestPick = ({ data }) => {
           <thead className="thead-light">
             <tr>
               <th>พนักงาน</th>
+              <th>วันที่สุ่ม</th>
               <th>เป็นช่อ</th>
               <th>ก้านยาว</th>
               <th>ใบขาด</th>
@@ -61,6 +79,7 @@ const DynamicRandomTestPick = ({ data }) => {
             {tableData.map((row, index) => (
               <tr key={index}>
                 <td style={{ textAlign: 'left' }}>{row.employeeName}</td>
+                <td>{row.randomDate}</td>
                 <td>{row.cluster}</td>
                 <td>{row.longStemmed}</td>
                 <td>{row.tornLeaves}</td>
@@ -72,6 +91,7 @@ const DynamicRandomTestPick = ({ data }) => {
           </tbody>
           <tfoot>
             <tr>
+              <th></th>
               <th>รวม</th>
               <th>{totals.cluster}</th>
               <th>{totals.longStemmed}</th>
@@ -104,10 +124,10 @@ const DynamicRandomTestPick = ({ data }) => {
             />
             <Tooltip />
             <Legend />
-            <Bar dataKey="cluster" fill="#8884d8" name="เป็นช่อ" />
-            <Bar dataKey="longStemmed" fill="#82ca9d" name="ก้านยาว" />
-            <Bar dataKey="tornLeaves" fill="#ffc658" name="ใบขาด" />
-            <Bar dataKey="stickTok" fill="#d0ed57" name="ติดตอก" />
+            <Bar dataKey="cluster" fill="#0088FE" name="เป็นช่อ" />
+            <Bar dataKey="longStemmed" fill="#ff7300" name="ก้านยาว" />
+            <Bar dataKey="tornLeaves" fill="#00C49F" name="ใบขาด" />
+            <Bar dataKey="stickTok" fill="#ffbb28" name="ติดตอก" />
           </BarChart>
         </ResponsiveContainer>
       </div>
