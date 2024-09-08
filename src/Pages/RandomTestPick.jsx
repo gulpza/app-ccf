@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Spinner } from 'react-bootstrap';
-import DynamicRandomTest from '../Components/DynamicRandomTest';
+import DynamicRandomTestPick from '../Components/DynamicRandomTestPick';
 import Enum from '../Helpper/Enum';
 
 function formatDate(date) {
@@ -13,7 +13,7 @@ function formatDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-function RandomTest() {
+function RandomTestPick() {
   const [filteredData, setFilteredData] = useState([]);
   const [startDate, setStartDate] = useState(formatDate(new Date())); // Start date default to today
   const [endDate, setEndDate] = useState(formatDate(new Date())); // End date default to today
@@ -30,7 +30,7 @@ function RandomTest() {
     setLoading(true); // Set loading state to true before fetching data
 
     // Construct the API URL with parameters
-    let params = "?action=randomTest";
+    let params = "?action=randomTestPick";
     params += `&startDate=${encodeURIComponent(startDate.trim())}`;
     params += `&endDate=${encodeURIComponent(endDate.trim())}`;
   
@@ -61,7 +61,7 @@ function RandomTest() {
              <Link >
           <img src={Enum.URL_LOGO} alt="Company Logo" className="img-fluid" style={{ maxWidth: '150px' }} />
         </Link>
-       <h2 className="text-center">สุ่มพนักงาน</h2>
+       <h2 className="text-center">สุ่มพนักงานเด็ด</h2>
       <div className="mb-6">
       <label htmlFor="startDate" className="form-label mt-3 me-3">วันที่สุ่มเริ่ม:</label>
 <input
@@ -97,10 +97,10 @@ function RandomTest() {
         </Modal.Body>
       </Modal>
 
-      <DynamicRandomTest data={filteredData} />
+      <DynamicRandomTestPick data={filteredData} />
       
     </div>
   );
 }
 
-export default RandomTest;
+export default RandomTestPick;

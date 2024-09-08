@@ -70,7 +70,15 @@ const Home = () => {
           <Link to="/random-test" className="card text-center">
             <div className="card-body">
               <i className="fa-solid fas fa-shuffle fa-3x mb-3"></i>
-              <h5 className="card-title">Random Test</h5>
+              <h5 className="card-title">สุ่มพนักงาน</h5>
+            </div>
+          </Link>
+        </div>
+        <div className="col-md-6">
+          <Link to="/random-test-pick" className="card text-center">
+            <div className="card-body">
+              <i className="fa-solid fas fa-paper-plane fa-3x mb-3"></i>
+              <h5 className="card-title">สุ่มพนักงานเด็ด</h5>
             </div>
           </Link>
         </div>

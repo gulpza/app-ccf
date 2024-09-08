@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { VerifyNumber } from '../Helpper/index';
 
 const DynamicRandomTest = ({ data }) => {
   const chartHeight = data.length * (data.length < 10 ? 80 : 50);
@@ -8,17 +9,17 @@ const DynamicRandomTest = ({ data }) => {
   // Convert the original data into the format needed for the table and chart
   const tableData = data.map((item) => ({
     employeeName: `${item['ชื่อพนักงาน']} ${item['นามสกุล']}`.trim(),
-    quantity: item['จำนวน'] || 0,
-    insect: item['หนอน/แมลง'] || 0,
-    wormNest: item['รังหนอน'] || 0,
-    ovary: item['รังไข่'] || 0,
-    yarn: item['เส้นด้าย'] || 0,
-    grass: item['หญ้า'] || 0,
-    hair: item['เส้นผม'] || 0,
-    lineHair: item['เส้นขน'] || 0,
-    wool: item['ขนสัตว์'] || 0,
-    plastic: item['พลาสติก'] || 0,
-    other: item['อื่น ๆ'] || 0,
+    quantity: VerifyNumber(item['จำนวน']),
+    insect: VerifyNumber(item['หนอน/แมลง']),
+    wormNest: VerifyNumber(item['รังหนอน']),
+    ovary: VerifyNumber(item['รังไข่']),
+    yarn: VerifyNumber(item['เส้นด้าย']),
+    grass: VerifyNumber(item['หญ้า']),
+    hair: VerifyNumber(item['เส้นผม']),
+    lineHair: VerifyNumber(item['เส้นขน']),
+    wool: VerifyNumber(item['ขนสัตว์']),
+    plastic: VerifyNumber(item['พลาสติก']),
+    other: VerifyNumber(item['อื่น ๆ']),
     note: item['หมายเหตุ'] || '-',
   }));
 
@@ -52,6 +53,8 @@ const DynamicRandomTest = ({ data }) => {
       other: 0,
     }
   );
+
+  console.log({totals})
 
   // Prepare data for the chart
   const chartData = tableData.map((row) => ({
@@ -110,17 +113,17 @@ const DynamicRandomTest = ({ data }) => {
           <tfoot>
             <tr>
               <th>รวม</th>
-              <th>{totals.quantity}</th>
-              <th>{totals.insect}</th>
-              <th>{totals.wormNest}</th>
-              <th>{totals.ovary}</th>
-              <th>{totals.yarn}</th>
-              <th>{totals.grass}</th>
-              <th>{totals.hair}</th>
-              <th>{totals.lineHair}</th>
-              <th>{totals.wool}</th>
-              <th>{totals.plastic}</th>
-              <th>{totals.other}</th>
+              <th>{totals.quantity.toFixed(2)}</th>
+              <th>{totals.insect.toFixed(2)}</th>
+              <th>{totals.wormNest.toFixed(2)}</th>
+              <th>{totals.ovary.toFixed(2)}</th>
+              <th>{totals.yarn.toFixed(2)}</th>
+              <th>{totals.grass.toFixed(2)}</th>
+              <th>{totals.hair.toFixed(2)}</th>
+              <th>{totals.lineHair.toFixed(2)}</th>
+              <th>{totals.wool.toFixed(2)}</th>
+              <th>{totals.plastic.toFixed(2)}</th>
+              <th>{totals.other.toFixed(2)}</th>
               <th></th>
             </tr>
           </tfoot>
