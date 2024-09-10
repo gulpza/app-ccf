@@ -17,6 +17,10 @@ const DynamicRandomTestPick = ({ data }) => {
     other: item['อื่น ๆ'] == true ? 1 : 0
   }));
 
+    // Sort the tableData by employeeName
+  tableData.sort((a, b) => a.employeeName.localeCompare(b.employeeName));
+
+
   // Calculate the totals for each category
   const totals = tableData.reduce(
     (acc, row) => {
