@@ -20,19 +20,23 @@ const pivotData = (data) => {
     const dateRawMat = moment(item['วันที่รับผัก']).format('DD/MM');
     const weight = item['น้ำหนัก'];
 
-    if (!pivot[farm][vegetableType]) {
-      pivot[farm][vegetableType] = {
+    // Initialize if not exists
+    if (!pivot[farm][dateRawMat]) {
+      pivot[farm][dateRawMat] = {}; // Group by dateRawMat (วันที่รับผัก)
+    }
+
+    if (!pivot[farm][dateRawMat][vegetableType]) {
+      pivot[farm][dateRawMat][vegetableType] = {
         dates: {},
-        dateRawMat,
       };
     }
 
-
-    if (!pivot[farm][vegetableType][date]) {
-      pivot[farm][vegetableType][date] = 0;
+    if (!pivot[farm][dateRawMat][vegetableType][date]) {
+      pivot[farm][dateRawMat][vegetableType][date] = 0;
     }
 
-    pivot[farm][vegetableType][date] += weight;
+    // Aggregate weight
+    pivot[farm][dateRawMat][vegetableType][date] += weight;
   });
 
   return { pivot, dates, farms };
@@ -43,8 +47,10 @@ const DynamicFarm = ({ data }) => {
 
   const sumValues = (date) => {
     return farms.reduce((sum, farm) => {
-      return sum + Object.values(pivot[farm]).reduce((farmSum, vegetableData) => {
-        return farmSum + (vegetableData[date] || 0);
+      return sum + Object.values(pivot[farm]).reduce((farmSum, vegetableGroups) => {
+        return farmSum + Object.values(vegetableGroups).reduce((vegSum, vegetableData) => {
+          return vegSum + (vegetableData[date] || 0);
+        }, 0);
       }, 0);
     }, 0).toFixed(2);
   };
@@ -65,27 +71,29 @@ const DynamicFarm = ({ data }) => {
           </thead>
           <tbody>
             {farms.flatMap(farm => {
-              const vegetableTypes = Object.keys(pivot[farm]);
-              return vegetableTypes.map((vegType, index) => (
-                <tr key={`${farm}-${vegType}-${index}`}>
-                  {<td>{farm}</td>}
-                  <td>{vegType}</td>
-                  <td>{pivot[farm][vegType].dateRawMat}</td>
-                  {dates.map(date => (
-                    <td key={date}>
-                      {pivot[farm][vegType][date]
-                        ? pivot[farm][vegType][date].toFixed(2)
-                        : 0}
-                    </td>
-                  ))}
-                </tr>
-              ));
+              const dateGroups = Object.keys(pivot[farm]);
+              return dateGroups.flatMap(dateRawMat => {
+                const vegetableTypes = Object.keys(pivot[farm][dateRawMat]);
+                return vegetableTypes.map((vegType, index) => (
+                  <tr key={`${farm}-${dateRawMat}-${vegType}-${index}`}>
+                    {index === 0 && <td rowSpan={vegetableTypes.length}>{farm}</td>}
+                    <td>{vegType}</td>
+                    {index === 0 && <td rowSpan={vegetableTypes.length}>{dateRawMat}</td>}
+                    {dates.map(date => (
+                      <td key={date}>
+                        {pivot[farm][dateRawMat][vegType][date]
+                          ? pivot[farm][dateRawMat][vegType][date].toFixed(2)
+                          : 0}
+                      </td>
+                    ))}
+                  </tr>
+                ));
+              });
             })}
           </tbody>
           <tfoot>
             <tr>
-              <td></td>
-              <td></td>
+              <td colSpan={2}></td>
               <td><strong>รวม</strong></td>
               {dates.map(date => (
                 <td key={date}><strong>{sumValues(date)}</strong></td>

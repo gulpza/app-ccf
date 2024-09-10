@@ -63,7 +63,7 @@ function PickDailyFarm() {
         </Link>
        <h2 className="text-center">จำนวนการเด็ดแต่ละวัน</h2>
       <div className="mb-6">
-        <label htmlFor="startDate" className="form-label mt-3 me-3">วันที่เริ่ม:</label>
+        <label htmlFor="startDate" className="form-label mt-3 me-3">วันที่เด็ดเริ่ม:</label>
 <input
   type="date"
   id="startDate"
