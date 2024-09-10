@@ -82,6 +82,14 @@ const Home = () => {
             </div>
           </Link>
         </div>
+        <div className="col-md-6">
+          <Link to="/ranking" className="card text-center">
+            <div className="card-body">
+              <i className="fa-solid fas fa-trophy fa-3x mb-3"></i>
+              <h5 className="card-title">Ranking</h5>
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );
