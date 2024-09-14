@@ -127,9 +127,25 @@ const handleDataScore = async () => {
                 hairRollingData = hairRollingData.filter(e => e.department === departmentId);
             }
 
-            const combinedData = [...scoreData, ...randomTestData, ...randomTestPickData, ...hairRollingData].sort((a, b) => b.point - a.point);
-                 
-            setFilteredData(combinedData);
+            const combinedData = [...scoreData, ...randomTestData, ...randomTestPickData, ...hairRollingData];
+
+            const groupedData = combinedData.reduce((acc, curr) => {
+              const existingEntry = acc.find(
+                entry => entry.employee === curr.employee && entry.department === curr.department
+              );
+        
+              if (existingEntry) {
+                existingEntry.point += curr.point;
+              } else {
+                acc.push({ ...curr }); // Keep the same structure as combinedData
+              }
+        
+              return acc;
+            }, []);
+        
+            const result = groupedData.sort((a, b) => b.point - a.point);
+        
+            setFilteredData(result);
          
     } finally {
       setLoading(false); // Set loading state to false after fetching data
