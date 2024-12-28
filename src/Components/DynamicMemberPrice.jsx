@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const pivotData = (data) => {
   const pivot = {};
   const prices = [...new Set(data.map(item => item['Price']))].sort((a, b) => a - b);
-  const employees = [...new Set(data.map(item => `${item['ชื่อพนักงาน']} ${item['นามสกุล']}`))].sort((a, b) => a.localeCompare(b));
+  const employees = [...new Set(data.map(item => `[${item['รหัสพนักงาน']}] ${item['ชื่อพนักงาน']} ${item['นามสกุล']}`))].sort((a, b) => a.localeCompare(b));
 
   employees.forEach(employee => {
     pivot[employee] = {};
@@ -14,7 +14,7 @@ const pivotData = (data) => {
   });
 
   data.forEach(item => {
-    const employee = `${item['ชื่อพนักงาน']} ${item['นามสกุล']}`;
+    const employee = `[${item['รหัสพนักงาน']}] ${item['ชื่อพนักงาน']} ${item['นามสกุล']}`;
     const price = item['Price'];
     const weight = item['น้ำหนัก'];
 
