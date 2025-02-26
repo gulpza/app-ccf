@@ -30,7 +30,9 @@ function PickDailyMemberRecord() {
     fetch(`${apiKey}?action=member`)
       .then(response => response.json())
       .then(data => {
-        const sortedData = data.sort((a, b) => a['รหัสพนักงาน'].toUpperCase() - b['รหัสพนักงาน'].toUpperCase());
+        const sortedData = data
+        .filter(employee => employee['IsActive'] === true)
+        .sort((a, b) => a['รหัสพนักงาน'].toUpperCase() - b['รหัสพนักงาน'].toUpperCase());
         setEmployees(sortedData);
       })
       .catch(error => {
@@ -89,10 +91,10 @@ function PickDailyMemberRecord() {
       <div className="mb-6">
         <label htmlFor="empId" className="form-label">พนักงาน:</label>
         <select id="empId" className="form-select" value={empId} onChange={(e) => setEmpId(e.target.value)}>
-        <option value="">เลือกพนักงาน</option>
+          <option value="">เลือกพนักงาน</option>
           {employees.map((employee) => (
             <option key={employee['รหัสพนักงาน']} value={employee['รหัสพนักงาน']}>
-              {employee['ชื่อพนักงาน']} {employee['นามสกุล']} {employee['รหัสพนักงาน']}  {'('}{employee['ชื่อเล่น'] || ''}{')'}
+              {employee['ชื่อพนักงาน']} {employee['นามสกุล']} {employee['รหัสพนักงาน']} {'('}{employee['ชื่อเล่น'] || '-'}{')'}
             </option>
           ))}
         </select>
