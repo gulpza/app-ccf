@@ -25,16 +25,20 @@ function PickDailyMemberRecord() {
     handleMember();
   }, []);
 
-  const handleMember = () => {
+  const handleMember = () => { 
     setLoading(true);
     fetch(`${apiKey}?action=member`)
       .then(response => response.json())
       .then(data => {
-        const sortedData = data.sort((a, b) => a['รหัสพนักงาน'].localeCompare(b['รหัสพนักงาน']));
+        const sortedData = data.sort((a, b) => a['รหัสพนักงาน'].toUpperCase() - b['รหัสพนักงาน'].toUpperCase());
         setEmployees(sortedData);
       })
-      .catch(error => console.error('Error fetching employee data:', error))
-      .finally(() => setLoading(false));
+      .catch(error => {
+        console.error('Error fetching employee data:', error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleFilter = () => {
@@ -85,10 +89,10 @@ function PickDailyMemberRecord() {
       <div className="mb-6">
         <label htmlFor="empId" className="form-label">พนักงาน:</label>
         <select id="empId" className="form-select" value={empId} onChange={(e) => setEmpId(e.target.value)}>
-          <option value="">เลือกพนักงาน</option>
-          {employees.map(employee => (
+        <option value="">เลือกพนักงาน</option>
+          {employees.map((employee) => (
             <option key={employee['รหัสพนักงาน']} value={employee['รหัสพนักงาน']}>
-              {employee['ชื่อพนักงาน']} {employee['นามสกุล']} ({employee['ชื่อเล่น'] || ''})
+              {employee['ชื่อพนักงาน']} {employee['นามสกุล']} {employee['รหัสพนักงาน']}  {'('}{employee['ชื่อเล่น'] || ''}{')'}
             </option>
           ))}
         </select>
