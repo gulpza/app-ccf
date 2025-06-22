@@ -12,6 +12,7 @@ import HairRolling from './Pages/HairRolling';
 import RandomTest from './Pages/RandomTest';
 import RandomTestPick from './Pages/RandomTestPick';
 import Ranking from './Pages/Ranking';
+import Yield from './Pages/Yield';
 
 function App() {
   // const logoUrl = 'https://chaicharoenfresh.com/wp-content/uploads/2024/03/cropped-logo-ccf-300x300.png';
@@ -36,6 +37,7 @@ function App() {
           <Route path="/random-test" element={<RandomTest />} />
           <Route path="/random-test-pick" element={<RandomTestPick />} />
           <Route path="/ranking" element={<Ranking />} />
+          <Route path="/yield" element={<Yield />} />
         </Routes>
       </div>
     </Router>
