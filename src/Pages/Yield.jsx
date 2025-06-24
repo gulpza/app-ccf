@@ -201,7 +201,8 @@ function Yield() {
         
         // เพิ่มข้อมูลจาก inputRawmatData
         inputRawmatData.forEach(item => {
-          const key = `${item.date}||${item.farmName}||${item.vegType}||${item.code}`;
+          // const key = `${item.date}||${item.farmName}||${item.vegType}||${item.code}`;
+          const key = `${item.code}`;
           combinedMap.set(key, {
             date: item.date,
             farmName: item.farmName,
@@ -215,7 +216,8 @@ function Yield() {
         
         // เพิ่มข้อมูลจาก pickRecordData
         pickRecordData.forEach(item => {
-          const key = `${item.date}||${item.farmName}||${item.vegType}||${item.code}`;
+          // const key = `${item.date}||${item.farmName}||${item.vegType}||${item.code}`;
+          const key = `${item.code}`;
           if (combinedMap.has(key)) {
             const existing = combinedMap.get(key);
             existing.pickRecordWeight = item.pickRecordWeight;
@@ -234,7 +236,8 @@ function Yield() {
         
         // เพิ่มข้อมูลจาก fgData
         fgData.forEach(item => {
-          const key = `${item.date}||${item.farmName}||${item.vegType}||${item.code}`;
+          // const key = `${item.date}||${item.farmName}||${item.vegType}||${item.code}`;
+          const key = `${item.code}`;
           if (combinedMap.has(key)) {
             const existing = combinedMap.get(key);
             existing.fgWeight = item.fgWeight;
@@ -382,11 +385,13 @@ function Yield() {
         <thead className="thead-light">
           <tr>
             <th scope="col">วันที่รับผัก</th>
-            <th scope="col">ไร่</th>
+            <th scope="col">ชื่อไร่</th>
             <th scope="col">ประเภทผัก</th>
             <th scope="col">จำนวนที่รับเข้า</th>
             <th scope="col">จำนวนที่เด็ดได้</th>
+            <th scope="col">% ยิวเด็ด</th>
             <th scope="col">จำนวน FG</th>
+            <th scope="col">% ยิว</th>
           </tr>
         </thead>
         <tbody>
@@ -398,21 +403,25 @@ function Yield() {
                 <td>{item.vegType}</td>
                 <td>{item.inputRawmatQty.toFixed(2)}</td>
                 <td>{item.pickRecordWeight.toFixed(2)}</td>
+                <td>{((item.pickRecordWeight / item.inputRawmatQty) * 100).toFixed(2)}</td>
                 <td>{item.fgWeight.toFixed(2)}</td>
+                <td>{((item.fgWeight / item.inputRawmatQty) * 100).toFixed(2)}</td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="6" className="text-center">No data available</td>
+              <td colSpan="8" className="text-center">No data available</td>
             </tr>
           )}
         </tbody>
         <tfoot className="table-dark">
           <tr>
             <th scope="row" colSpan="3" className="text-center">รวมทั้งหมด</th>
-            <th>{filteredData.reduce((sum, item) => sum + (item.inputWeight || 0), 0).toFixed(2)}</th>
-            <th>{filteredData.reduce((sum, item) => sum + (item.pickWeight || 0), 0).toFixed(2)}</th>
+            <th>{filteredData.reduce((sum, item) => sum + (item.inputRawmatQty || 0), 0).toFixed(2)}</th>
+            <th>{filteredData.reduce((sum, item) => sum + (item.pickRecordWeight || 0), 0).toFixed(2)}</th>
             <th>{filteredData.reduce((sum, item) => sum + (item.fgWeight || 0), 0).toFixed(2)}</th>
+            <th>{filteredData.reduce((sum, item) => sum + (((item.pickRecordWeight / item.inputRawmatQty) * 100) || 0), 0).toFixed(2)}</th>
+            <th>{filteredData.reduce((sum, item) => sum + (((item.fgWeight / item.inputRawmatQty) * 100) || 0), 0).toFixed(2)}</th>
           </tr>
         </tfoot>
       </table>
