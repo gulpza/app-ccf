@@ -13,6 +13,7 @@ import RandomTest from './Pages/RandomTest';
 import RandomTestPick from './Pages/RandomTestPick';
 import Ranking from './Pages/Ranking';
 import Yield from './Pages/Yield';
+import DashboardPickDailyMemberPrice from './Pages/DashboardPickDailyMemberPrice';
 
 function App() {
   // const logoUrl = 'https://chaicharoenfresh.com/wp-content/uploads/2024/03/cropped-logo-ccf-300x300.png';
@@ -38,6 +39,7 @@ function App() {
           <Route path="/random-test-pick" element={<RandomTestPick />} />
           <Route path="/ranking" element={<Ranking />} />
           <Route path="/yield" element={<Yield />} />
+          <Route path="/dashboard-pick-daily-member-price" element={<DashboardPickDailyMemberPrice />} />
         </Routes>
       </div>
     </Router>

@@ -84,9 +84,11 @@ function PickDailyMemberRecord() {
 
   return (
     <div className="container mt-4">
-      <Link to="/home">
-        <img src={Enum.URL_LOGO} alt="Company Logo" className="img-fluid" style={{ maxWidth: '150px' }} />
-      </Link>
+     <div className="d-flex justify-content-center">
+        <Link to="/home" className="d-inline-block">
+          <img src={Enum.URL_LOGO} alt="Company Logo" className="img-fluid" style={{ maxWidth: '150px' }} />
+        </Link>
+      </div>
       <h2 className="text-center">รายงานจำนวนการเด็ด</h2>
       <div className="mb-6">
         <label htmlFor="empId" className="form-label">พนักงาน:</label>

@@ -7,7 +7,7 @@ const Home = () => {
     <div className="min-vh-100" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #e0e7ef 100%)' }}>
       <div className="container py-5">
         <div className="text-center mb-4">
-          <img src={Enum.URL_LOGO} alt="Company Logo" className="img-fluid mb-2" style={{ maxWidth: '120px' }} />
+          <img src={Enum.URL_LOGO} alt="Company Logo" className="img-fluid d-block mx-auto mb-2" style={{ maxWidth: '120px' }} />
           <h1 className="fw-bold">ยินดีต้อนรับสู่ระบบรายงาน</h1>
           <p className="text-muted">เลือกรีพอร์ตที่ต้องการดูข้อมูล</p>
         </div>
@@ -122,6 +122,16 @@ const Home = () => {
               </div>
             </Link>
           </div>
+          <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+            <Link to="/dashboard-pick-daily-member-price" className="text-decoration-none">
+              <div className="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
+                <div className="card-body text-center">
+                  <i className="fa-solid fas fa-money-bill-wave fa-3x mb-3 text-primary"></i>
+                  <h5 className="card-title fw-semibold">Dashboard <br/>รายงานคนเด็ดประจำวัน</h5>
+                </div>
+              </div>
+            </Link>
+          </div>  
         </div>
       </div>
       <style>

@@ -149,7 +149,7 @@ function Yield() {
             };
           }
       
-          acc[key]['inputRawmatQty'] += parseFloat(item['จำนวน'] || 0);
+          acc[key]['inputRawmatQty'] += parseFloat(item['Show จำนวน'] || 0);
       
           return acc;
         }, {});
@@ -318,9 +318,11 @@ function Yield() {
 
   return (
     <div className="container mt-4">
-           <Link to="/home" >
+      <div className="d-flex justify-content-center">
+        <Link to="/home" className="d-inline-block">
           <img src={Enum.URL_LOGO} alt="Company Logo" className="img-fluid" style={{ maxWidth: '150px' }} />
         </Link>
+      </div>
       <h2 className="text-center">รายการยิว</h2>
       <div className="mb-6">
         <label htmlFor="startDate" className="form-label mt-3 me-3">วันที่เริ่ม:</label>
@@ -414,16 +416,6 @@ function Yield() {
             </tr>
           )}
         </tbody>
-        <tfoot className="table-dark">
-          <tr>
-            <th scope="row" colSpan="3" className="text-center">รวมทั้งหมด</th>
-            <th>{filteredData.reduce((sum, item) => sum + (item.inputRawmatQty || 0), 0).toFixed(2)}</th>
-            <th>{filteredData.reduce((sum, item) => sum + (item.pickRecordWeight || 0), 0).toFixed(2)}</th>
-            <th>{filteredData.reduce((sum, item) => sum + (item.fgWeight || 0), 0).toFixed(2)}</th>
-            <th>{filteredData.reduce((sum, item) => sum + (((item.pickRecordWeight / item.inputRawmatQty) * 100) || 0), 0).toFixed(2)}</th>
-            <th>{filteredData.reduce((sum, item) => sum + (((item.fgWeight / item.inputRawmatQty) * 100) || 0), 0).toFixed(2)}</th>
-          </tr>
-        </tfoot>
       </table>
     </div>
   );

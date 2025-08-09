@@ -125,9 +125,11 @@ function PickDailyFarmVeg() {
 
   return (
     <div className="container mt-4">
-           <Link to="/home" >
+         <div className="d-flex justify-content-center">
+        <Link to="/home" className="d-inline-block">
           <img src={Enum.URL_LOGO} alt="Company Logo" className="img-fluid" style={{ maxWidth: '150px' }} />
         </Link>
+      </div>
       <h2 className="text-center">รายงานจำนวนของแต่ละไร่</h2>
       <div className="mb-6">
         <label htmlFor="startDate" className="form-label mt-3 me-3">วันที่เริ่ม:</label>
