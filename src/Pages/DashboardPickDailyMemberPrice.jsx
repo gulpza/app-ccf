@@ -19,30 +19,52 @@ function DashboardPickDailyMemberPrice() {
   const [loading, setLoading] = useState(false);
   const apiKey = import.meta.env.VITE_SHEET_PICK_API_KEY;
 
+  // โหลดครั้งแรก
   useEffect(() => {
     handleFilter();
   }, []);
 
-  // Auto-refresh every 7s เฉพาะตอนที่ยังไม่มีข้อมูล
+  // ถ้ายังไม่มีข้อมูล ให้ลองดึงซ้ำทุก 7 วินาที
   useEffect(() => {
     const timer = setInterval(() => {
-      if (startDate && filteredData.length === 0) {
+      if (filteredData.length === 0) {
         console.log('Auto-refresh every 7s (no data found)…');
         handleFilter();
       }
     }, 7 * 1000);
     return () => clearInterval(timer);
-  }, [startDate, filteredData.length]);
+  }, [filteredData.length]);
 
-  const handleFilter = () => {
+  // อัปเดตวันอัตโนมัติเมื่อข้ามวัน + ดึงข้อมูลใหม่
+  useEffect(() => {
+    const tick = setInterval(() => {
+      const today = formatDate(new Date());
+      if (today !== startDate || today !== endDate) {
+        setStartDate(today);
+        setEndDate(today);
+        console.log('Date changed (new day) → refresh data for today');
+        // ดึงข้อมูลของวันใหม่อัตโนมัติ
+        handleFilter(today);
+      }
+    }, 60 * 1000); // เช็คทุก 1 นาที
+    return () => clearInterval(tick);
+    // ใส่ startDate/endDate ใน deps เพื่อให้รู้วันล่าสุด
+  }, [startDate, endDate]);
+
+  // ดึงข้อมูล (บังคับใช้ "วันนี้" เสมอ)
+  const handleFilter = (overrideToday) => {
+    const today = overrideToday ?? formatDate(new Date());
+
+    // sync state ให้เป็นวันนี้ก่อน
+    if (today !== startDate) setStartDate(today);
+    if (today !== endDate) setEndDate(today);
+
     setLoading(true);
 
-    let params = '?action=pickrecord';
-    // ใช้ค่าจริงได้ตามต้องการ:
-    params += `&startDate=${encodeURIComponent(startDate.trim())}`;
-    params += `&endDate=${encodeURIComponent(endDate.trim())}`;
-    // params += `&startDate=2025-07-30`;
-    // params += `&endDate=2025-08-30`;
+    const params =
+      `?action=pickrecord` +
+      `&startDate=${encodeURIComponent(today)}` +
+      `&endDate=${encodeURIComponent(today)}`;
 
     fetch(`${apiKey}${params}`)
       .then((r) => r.json())
@@ -51,19 +73,22 @@ function DashboardPickDailyMemberPrice() {
       .finally(() => setLoading(false));
   };
 
-  // ให้ Table เรียกใช้เมื่ออยาก refresh อัตโนมัติ (เฉพาะตอนมีข้อมูลแล้ว)
+  // ให้ Table เรียกเมื่ออยาก refresh อัตโนมัติ (ตอนมีข้อมูลแล้ว)
   const handleAutoRefresh = () => {
-    if (startDate && filteredData.length > 0) {
+    if (filteredData.length > 0) {
       console.log('Auto-refresh on demand…');
       handleFilter();
     }
   };
 
   return (
-    // padding ซ้าย/ขวาแบบ responsive + กัน overflow
     <div className="container-fluid px-2 px-sm-3 px-md-4" style={{ overflowX: 'hidden' }}>
+      {loading && (
+        <div className="d-flex justify-content-center my-3">
+          <Spinner animation="border" role="status" />
+        </div>
+      )}
 
-      {/* ส่ง data + ฟังก์ชันรีเฟรช + โลโก้ไปยังตาราง */}
       <TableDashboardPickDailyMemberPrice
         data={filteredData}
         onRefreshData={handleAutoRefresh}

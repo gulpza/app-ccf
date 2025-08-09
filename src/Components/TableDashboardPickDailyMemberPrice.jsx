@@ -70,20 +70,28 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
   const [lastFetchDate, setLastFetchDate] = useState(new Date());
   const cardsPerPage = 10;
 
+  // รวมยอดต่อพนักงาน (แบบตัวเลข) แล้วค่อยแปลงเป็นข้อความตอนแสดงผล
   const employeeTotals = employees.map(emp =>
-    prices.reduce((sum, price) => sum + pivot[emp][price], 0).toFixed(2)
+    prices.reduce((sum, price) => sum + pivot[emp][price], 0)
   );
 
-  const cardData = employees.map((emp, idx) => ({
-    employee: emp,
-    prices: prices.map(price => ({ price, weight: pivot[emp][price].toFixed(2) })),
-    total: employeeTotals[idx]
-  }));
+  // สร้างรายการเฉพาะพนักงานที่มียอดรวม > 0 เท่านั้น
+  const dataList = employees.reduce((acc, emp, idx) => {
+    const total = employeeTotals[idx];
+    if (total > 0) {
+      acc.push({
+        employee: emp,
+        prices: prices.map(price => ({ price, weight: pivot[emp][price].toFixed(2) })),
+        total: total.toFixed(2)
+      });
+    }
+    return acc;
+  }, []);
 
-  const totalPages = Math.ceil(cardData.length / cardsPerPage);
+  const totalPages = Math.ceil(dataList.length / cardsPerPage);
   const getCurrentPageData = () => {
     const startIndex = currentPage * cardsPerPage;
-    return cardData.slice(startIndex, startIndex + cardsPerPage);
+    return dataList.slice(startIndex, startIndex + cardsPerPage);
   };
 
   useEffect(() => {
@@ -253,7 +261,7 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
         </div>
       </div>
 
-      {cardData.length > 0 && totalPages > 1 && (
+      {dataList.length > 0 && totalPages > 1 && (
         <div
           className="w-100"
           style={{
