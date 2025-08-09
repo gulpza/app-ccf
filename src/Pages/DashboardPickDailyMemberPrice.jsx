@@ -83,12 +83,6 @@ function DashboardPickDailyMemberPrice() {
 
   return (
     <div className="container-fluid px-2 px-sm-3 px-md-4" style={{ overflowX: 'hidden' }}>
-      {loading && (
-        <div className="d-flex justify-content-center my-3">
-          <Spinner animation="border" role="status" />
-        </div>
-      )}
-
       <TableDashboardPickDailyMemberPrice
         data={filteredData}
         onRefreshData={handleAutoRefresh}
