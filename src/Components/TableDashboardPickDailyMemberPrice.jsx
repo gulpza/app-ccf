@@ -67,6 +67,7 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
   const { pivot, prices, employees } = pivotData(data);
   const [currentPage, setCurrentPage] = useState(0);
   const [lastUpdateTime, setLastUpdateTime] = useState(new Date().toLocaleTimeString('th-TH'));
+  const [lastFetchDate, setLastFetchDate] = useState(new Date());
   const cardsPerPage = 10;
 
   const employeeTotals = employees.map(emp =>
@@ -90,7 +91,10 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
       const interval = setInterval(() => {
         setCurrentPage(prev => {
           const next = (prev + 1) % totalPages;
-          if (next === 0 && onRefreshData) onRefreshData();
+          if (next === 0 && onRefreshData) {
+            setLastFetchDate(new Date());
+            onRefreshData();
+          }
           return next;
         });
       }, 7000);
@@ -100,7 +104,10 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
 
   useEffect(() => {
     setCurrentPage(0);
-    if (data.length > 0) setLastUpdateTime(new Date().toLocaleTimeString('th-TH'));
+    if (data.length > 0) {
+      setLastUpdateTime(new Date().toLocaleTimeString('th-TH'));
+      setLastFetchDate(new Date());
+    }
   }, [data]);
 
   const currentPageData = getCurrentPageData();
@@ -145,7 +152,7 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
                 <i className="fas fa-calendar-alt me-1" />
                 ข้อมูลล่าสุด: วันที่{' '}
                 {(() => {
-                  const d = startDate ? new Date(startDate) : new Date();
+                  const d = lastFetchDate || (startDate ? new Date(startDate) : new Date());
                   const dd = d.getDate().toString().padStart(2, '0');
                   const mm = (d.getMonth() + 1).toString().padStart(2, '0');
                   const yyyy = (d.getFullYear() + 543).toString();
