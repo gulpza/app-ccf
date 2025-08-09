@@ -78,6 +78,7 @@ button:focus-visible {
   width: 100% !important;
   padding-left: clamp(0.5rem, 1vw, 1rem) !important;
   padding-right: clamp(0.5rem, 1vw, 1rem) !important;
+  padding-top: 0 !important;
 }
 
 

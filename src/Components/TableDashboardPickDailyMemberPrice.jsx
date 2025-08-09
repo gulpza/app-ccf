@@ -141,7 +141,7 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
             </div>
 
             <div className="d-flex align-items-center flex-wrap" style={{ columnGap: '.5rem' }}>
-              <span className="text-success fw-bold" style={{ fontSize: 'clamp(0.8rem, 1.8vw, 1rem)' }}>
+              <span className="text-success fw-bold" style={{ fontSize: 'clamp(1rem, 1.8vw, 1rem)' }}>
                 <i className="fas fa-calendar-alt me-1" />
                 ข้อมูลล่าสุด: วันที่{' '}
                 {(() => {
@@ -152,7 +152,9 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
                   return `${dd}-${mm}-${yyyy}`;
                 })()}
               </span>
-              <span className="text-muted" style={{ fontSize: 'clamp(0.7rem, 1.4vw, 0.9rem)' }}>
+                </div>
+                 <div className="d-flex align-items-center flex-wrap" style={{ columnGap: '.5rem' }}>
+              <span className="text-muted" style={{ fontSize: 'clamp(0.9rem, 1.4vw, 0.9rem)' }}>
                 <i className="fas fa-clock me-1" />
                 อัพเดท:{' '}
                 {isLoading ? (

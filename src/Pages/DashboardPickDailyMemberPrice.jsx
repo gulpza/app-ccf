@@ -39,10 +39,10 @@ function DashboardPickDailyMemberPrice() {
 
     let params = '?action=pickrecord';
     // ใช้ค่าจริงได้ตามต้องการ:
-    // params += `&startDate=${encodeURIComponent(startDate.trim())}`;
-    // params += `&endDate=${encodeURIComponent(endDate.trim())}`;
-    params += `&startDate=2025-07-30`;
-    params += `&endDate=2025-08-30`;
+    params += `&startDate=${encodeURIComponent(startDate.trim())}`;
+    params += `&endDate=${encodeURIComponent(endDate.trim())}`;
+    // params += `&startDate=2025-07-30`;
+    // params += `&endDate=2025-08-30`;
 
     fetch(`${apiKey}${params}`)
       .then((r) => r.json())
@@ -61,7 +61,7 @@ function DashboardPickDailyMemberPrice() {
 
   return (
     // padding ซ้าย/ขวาแบบ responsive + กัน overflow
-    <div className="container-fluid px-2 px-sm-3 px-md-4 py-2" style={{ overflowX: 'hidden' }}>
+    <div className="container-fluid px-2 px-sm-3 px-md-4" style={{ overflowX: 'hidden' }}>
 
       {/* ส่ง data + ฟังก์ชันรีเฟรช + โลโก้ไปยังตาราง */}
       <TableDashboardPickDailyMemberPrice
