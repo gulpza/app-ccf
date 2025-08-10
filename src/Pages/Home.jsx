@@ -132,6 +132,16 @@ const Home = () => {
               </div>
             </Link>
           </div>  
+          <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+            <Link to="/dashboard-production-process-status" className="text-decoration-none">
+              <div className="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
+                <div className="card-body text-center">
+                  <i className="fa-solid fas fa-cogs fa-3x mb-3 text-primary"></i>
+                  <h5 className="card-title fw-semibold">Dashboard <br/>สถานะกระบวนการผลิต</h5>
+                </div>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
       <style>

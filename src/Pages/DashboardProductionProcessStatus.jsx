@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Spinner } from 'react-bootstrap';
-import TableDashboardPickDailyMemberPrice from '../Components/Tables/TableDashboardPickDailyMemberPrice';
+import TableDashboardProductionProcessStatus from '../Components/Tables/TableDashboardProductionProcessStatus';
 import Enum from '../Helpper/Enum';
 
 function formatDate(date) {
@@ -12,7 +12,7 @@ function formatDate(date) {
   return `${y}-${m}-${d}`;
 }
 
-function DashboardPickDailyMemberPrice() {
+function DashboardProductionProcessStatus() {
   const [filteredData, setFilteredData] = useState([]);
   const [startDate, setStartDate] = useState(formatDate(new Date()));
   const [endDate, setEndDate] = useState(formatDate(new Date()));
@@ -35,36 +35,43 @@ function DashboardPickDailyMemberPrice() {
     return () => clearInterval(timer);
   }, [filteredData.length]);
 
-  // อัปเดตวันอัตโนมัติเมื่อข้ามวัน + ดึงข้อมูลใหม่
+  // อัปเดตช่วงวันอัตโนมัติเมื่อข้ามวัน → ย้อนหลัง 7 วัน (รวมวันนี้)
   useEffect(() => {
     const tick = setInterval(() => {
-      const today = formatDate(new Date());
-      if (today !== startDate || today !== endDate) {
-        setStartDate(today);
-        setEndDate(today);
-        console.log('Date changed (new day) → refresh data for today');
-        // ดึงข้อมูลของวันใหม่อัตโนมัติ
-        handleFilter(today);
+      const base = new Date();
+      const end = formatDate(base);
+      const startObj = new Date(base);
+      startObj.setDate(base.getDate() - 7); // รวมวันนี้ + ย้อนหลังอีก 7 วัน = 7 วัน
+      const start = formatDate(startObj);
+
+      if (start !== startDate || end !== endDate) {
+        setStartDate(start);
+        setEndDate(end);
+        console.log('Date changed (new day) → refresh last 7 days');
+        handleFilter(end); // ใช้ end เป็นฐานคำนวณช่วง 7 วัน
       }
     }, 60 * 1000); // เช็คทุก 1 นาที
     return () => clearInterval(tick);
-    // ใส่ startDate/endDate ใน deps เพื่อให้รู้วันล่าสุด
   }, [startDate, endDate]);
 
-  // ดึงข้อมูล (บังคับใช้ "วันนี้" เสมอ)
-  const handleFilter = (overrideToday) => {
-    const today = overrideToday ?? formatDate(new Date());
+  // ดึงข้อมูลช่วง 3 วันล่าสุด (รวมวันนี้)
+  const handleFilter = (overrideBaseDate) => {
+    const base = overrideBaseDate ? new Date(overrideBaseDate) : new Date();
+    const end = formatDate(base);
+    const startObj = new Date(base);
+    startObj.setDate(base.getDate() - 6); // 7 วันย้อนหลังรวมวันนี้
+    const start = formatDate(startObj);
 
-    // sync state ให้เป็นวันนี้ก่อน
-    if (today !== startDate) setStartDate(today);
-    if (today !== endDate) setEndDate(today);
+    // sync state ให้เป็นช่วง 3 วันล่าสุด
+    if (start !== startDate) setStartDate(start);
+    if (end !== endDate) setEndDate(end);
 
     setLoading(true);
 
     const params =
-      `?action=pickrecord` +
-      `&startDate=${encodeURIComponent(today)}` +
-      `&endDate=${encodeURIComponent(today)}`;
+      `?action=inputRawmat` +
+      `&startDate=${encodeURIComponent(start)}` +
+      `&endDate=${encodeURIComponent(end)}`;
 
     fetch(`${apiKey}${params}`)
       .then((r) => r.json())
@@ -83,7 +90,7 @@ function DashboardPickDailyMemberPrice() {
 
   return (
     <div className="container-fluid px-2 px-sm-3 px-md-4" style={{ overflowX: 'hidden' }}>
-      <TableDashboardPickDailyMemberPrice
+      <TableDashboardProductionProcessStatus
         data={filteredData}
         onRefreshData={handleAutoRefresh}
         isLoading={loading}
@@ -94,4 +101,4 @@ function DashboardPickDailyMemberPrice() {
   );
 }
 
-export default DashboardPickDailyMemberPrice;
+export default DashboardProductionProcessStatus;

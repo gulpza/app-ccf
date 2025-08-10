@@ -60,7 +60,7 @@ const getPriceBadgeStyle = (p) => {
   const v = Number(p);
   if (v === 34) return { backgroundColor: '#ffc107', color: '#212529' }; // เหลือง ตัวอักษรเข้ม
   // ค่า 29 และอื่นๆ ใช้เขียวเป็นค่าเริ่มต้น
-  return { backgroundColor: '#198754', color: '#ffffff' };
+  return { backgroundColor: '#007bff', color: '#ffffff' };
 };
 
 const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, startDate, logoUrl }) => {
@@ -68,7 +68,7 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
   const [currentPage, setCurrentPage] = useState(0);
   const [lastUpdateTime, setLastUpdateTime] = useState(new Date().toLocaleTimeString('th-TH'));
   const [lastFetchDate, setLastFetchDate] = useState(new Date());
-  const cardsPerPage = 10;
+  const cardsPerPage = 15;
 
   // รวมยอดต่อพนักงาน (แบบตัวเลข) แล้วค่อยแปลงเป็นข้อความตอนแสดงผล
   const employeeTotals = employees.map(emp =>
@@ -189,23 +189,62 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
       <div className="flex-grow-1 w-100"
      style={{ overflow:'auto' }}>
         <div className="table-responsive">
-           <table className="table table-striped w-100" style={{ tableLayout: 'auto', fontSize: 'clamp(1rem, 2.2vw, 1.4rem)' }}>
-            <thead style={{ backgroundColor: '#0a8b4eff', color: 'white' }}>
+          <table className="table table-striped w-100" style={{ 
+             tableLayout: 'auto', 
+             fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+             border: '3px solid #228B22',
+             borderCollapse: 'separate',
+             borderSpacing: 0,
+             borderRadius: '8px',
+             overflow: 'hidden',
+             boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+           }}>
+            <thead style={{ backgroundColor: '#228B22', color: '#ffffff' }}>
               <tr>
-                <th className="text-center fw-bold sticky-top" style={{ position: 'sticky', top: 0, fontSize: 'clamp(1.1rem, 2.4vw, 1.6rem)' }}>
+                 <th className="text-center fw-bold sticky-top align-middle" style={{ 
+                  position: 'sticky', 
+                  top: 0, 
+                  fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                  border: '2px solid #ffffff',
+                  padding: '0.6rem 0.4rem',
+                  backgroundColor: '#228B22',
+                  color: '#ffffff',
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                  verticalAlign: 'middle'
+                }}>
                   <i className="fas fa-user me-1" />
                   รหัสพนักงาน
                 </th>
                 {prices.map((price) => (
                   <th
                     key={price}
-                    className="text-center fw-bold sticky-top"
-                    style={{ position: 'sticky', top: 0, fontSize: 'clamp(1.1rem, 2.4vw, 1.6rem)' }}
+                    className="text-center fw-bold sticky-top align-middle"
+                    style={{ 
+                  position: 'sticky', 
+                  top: 0, 
+                  fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                  border: '2px solid #ffffff',
+                  padding: '0.6rem 0.4rem',
+                  backgroundColor: '#228B22',
+                  color: '#ffffff',
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                  verticalAlign: 'middle'
+                }}
                   >
                     {getPriceLabel(price)}
                   </th>
                 ))}
-                <th className="text-center fw-bold sticky-top" style={{ position: 'sticky', top: 0, fontSize: 'clamp(1.1rem, 2.4vw, 1.6rem)' }}>
+                <th className="text-center fw-bold sticky-top align-middle"  style={{ 
+                  position: 'sticky', 
+                  top: 0, 
+                  fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                  border: '2px solid #ffffff',
+                  padding: '0.6rem 0.4rem',
+                  backgroundColor: '#228B22',
+                  color: '#ffffff',
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
+                  verticalAlign: 'middle'
+                }}>
                   <i className="fas fa-weight me-1" />
                   รวม (kg)
                 </th>
@@ -215,20 +254,33 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
             <tbody>
               {currentPageData.map((item, index) => (
                 <tr key={item.employee} style={{ backgroundColor: index % 2 === 0 ? '#f8f9fa' : '#ffffff' }}>
-                  <td className="text-center fw-bold" style={{ wordBreak: 'break-word', fontSize: 'clamp(1rem, 2.2vw, 1.4rem)' }}>
+                  <td className="text-center fw-bold align-middle" style={{ 
+                    wordBreak: 'break-word', 
+                    fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                    padding: '0.6rem 0.4rem',
+                    verticalAlign: 'middle',
+                    border: '1px solid #dee2e6'
+                  }}>
                     {item.employee}
                   </td>
 
                   {item.prices.map((p) => (
-                    <td key={p.price} className="text-center" style={{ fontSize: 'clamp(1rem, 2.2vw, 1.4rem)' }}>
+                    <td key={p.price} className="text-center align-middle" style={{ 
+                      fontSize: 'clamp(1rem, 2.2vw, 1.4rem)',
+                      padding: '0.6rem 0.4rem',
+                      verticalAlign: 'middle',
+                      border: '1px solid #dee2e6'
+                    }}>
                       {p.weight > 0 ? (
                         <span
-                          className="fw-bold px-1 py-1 rounded"
+                          className="fw-bold px-2 py-1 rounded"
                           style={{
                             ...getPriceBadgeStyle(p.price),
                             display: 'inline-block',
                             minWidth: '2.75rem',
-                            fontSize: 'clamp(1rem, 2.2vw, 1.4rem)'
+                            fontSize: 'clamp(1.5rem, 2vw, 1.3rem)',
+                            border: '2px solid #ffffff',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.15)'
                           }}
                         >
                           {p.weight}
@@ -240,10 +292,31 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
                   ))}
 
                   <td
-                    className="text-center fw-bold"
-                    style={{ color: '#0d6efd', backgroundColor: '#e7f3ff', fontSize: 'clamp(1.1rem, 2.4vw, 1.6rem)' }}
+                    className="text-center fw-bold align-middle"
+                    style={{ 
+                      fontSize: 'clamp(1rem, 2.2vw, 1.4rem)',
+                      padding: '0.6rem 0.4rem',
+                      verticalAlign: 'middle',
+                      border: '1px solid #dee2e6'
+                    }}
                   >
-                    {item.total}
+
+                      <span
+                          className="fw-bold px-2 py-1 rounded"
+                          style={{
+                            backgroundColor: '#198754',
+                            color: '#ffffff',
+                            display: 'inline-block',
+                            minWidth: '2.75rem',
+                            fontSize: 'clamp(1.5rem, 2vw, 1.3rem)',
+                            border: '2px solid #ffffff',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.15)'
+                          }}
+                        >
+                          {item.total}
+                        </span>
+
+                   
                   </td>
                 </tr>
               ))}
