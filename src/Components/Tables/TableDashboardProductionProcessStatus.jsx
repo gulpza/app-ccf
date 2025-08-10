@@ -58,9 +58,11 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
       const interval = setInterval(() => {
         setCurrentPage(prev => {
           const next = (prev + 1) % totalPages;
+          // เช็คว่าจะกลับไปหน้าแรกหรือไม่ (หมายถึงอยู่หน้าสุดท้าย)
+          const isLastPage = prev === totalPages - 1;
           if (next === 0 && onRefreshData) {
             setLastFetchDate(new Date());
-            onRefreshData();
+            onRefreshData(isLastPage); // ส่งข้อมูลว่าอยู่หน้าสุดท้ายหรือไม่
           }
           return next;
         });

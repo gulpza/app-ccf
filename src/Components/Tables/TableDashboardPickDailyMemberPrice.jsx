@@ -68,7 +68,7 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
   const [currentPage, setCurrentPage] = useState(0);
   const [lastUpdateTime, setLastUpdateTime] = useState(new Date().toLocaleTimeString('th-TH'));
   const [lastFetchDate, setLastFetchDate] = useState(new Date());
-  const cardsPerPage = 15;
+  const cardsPerPage = 10;
 
   // รวมยอดต่อพนักงาน (แบบตัวเลข) แล้วค่อยแปลงเป็นข้อความตอนแสดงผล
   const employeeTotals = employees.map(emp =>
@@ -99,9 +99,11 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
       const interval = setInterval(() => {
         setCurrentPage(prev => {
           const next = (prev + 1) % totalPages;
+          // เช็คว่าจะกลับไปหน้าแรกหรือไม่ (หมายถึงอยู่หน้าสุดท้าย)
+          const isLastPage = prev === totalPages - 1;
           if (next === 0 && onRefreshData) {
             setLastFetchDate(new Date());
-            onRefreshData();
+            onRefreshData(isLastPage); // ส่งข้อมูลว่าอยู่หน้าสุดท้ายหรือไม่
           }
           return next;
         });

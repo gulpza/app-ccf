@@ -17,6 +17,7 @@ function DashboardPickDailyMemberPrice() {
   const [startDate, setStartDate] = useState(formatDate(new Date()));
   const [endDate, setEndDate] = useState(formatDate(new Date()));
   const [loading, setLoading] = useState(false);
+  const [lastApiCallTime, setLastApiCallTime] = useState(null);
   const apiKey = import.meta.env.VITE_SHEET_PICK_API_KEY;
 
   // โหลดครั้งแรก
@@ -60,6 +61,7 @@ function DashboardPickDailyMemberPrice() {
     if (today !== endDate) setEndDate(today);
 
     setLoading(true);
+    setLastApiCallTime(new Date()); // บันทึกเวลาที่ call API
 
     const params =
       `?action=pickrecord` +
@@ -73,11 +75,27 @@ function DashboardPickDailyMemberPrice() {
       .finally(() => setLoading(false));
   };
 
-  // ให้ Table เรียกเมื่ออยาก refresh อัตโนมัติ (ตอนมีข้อมูลแล้ว)
-  const handleAutoRefresh = () => {
-    if (filteredData.length > 0) {
-      console.log('Auto-refresh on demand…');
+  // ให้ Table เรียกเมื่ออยาก refresh อัตโนมัติ (เฉพาะเมื่ออยู่หน้าสุดท้ายและเกิน 1 นาที)
+  const handleAutoRefresh = (isLastPage = false) => {
+    if (!isLastPage) {
+      console.log('Not on last page, skipping auto-refresh');
+      return;
+    }
+
+    if (!lastApiCallTime) {
+      console.log('No previous API call time, proceeding with refresh');
       handleFilter();
+      return;
+    }
+
+    const now = new Date();
+    const timeDiff = (now - lastApiCallTime) / 1000 / 60; // ความต่างเป็นนาที
+
+    if (timeDiff >= 1) {
+      console.log(`Auto-refresh on last page after ${timeDiff.toFixed(1)} minutes`);
+      handleFilter();
+    } else {
+      console.log(`Skipping auto-refresh, only ${timeDiff.toFixed(1)} minutes since last call (need 1 minute)`);
     }
   };
 
