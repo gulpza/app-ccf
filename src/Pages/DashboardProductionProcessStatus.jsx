@@ -1,7 +1,5 @@
-// DashboardPickDailyMemberPrice.jsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Spinner } from 'react-bootstrap';
 import TableDashboardProductionProcessStatus from '../Components/Tables/TableDashboardProductionProcessStatus';
 import Enum from '../Helpper/Enum';
 
@@ -25,14 +23,13 @@ function DashboardProductionProcessStatus() {
     handleFilter();
   }, []);
 
-  // ถ้ายังไม่มีข้อมูล ให้ลองดึงซ้ำทุก 7 วินาที
+  // ถ้ายังไม่มีข้อมูล ให้ลองดึงซ้ำทุก 30 วินาที
   useEffect(() => {
     const timer = setInterval(() => {
       if (filteredData.length === 0) {
-        console.log('Auto-refresh every 7s (no data found)…');
         handleFilter();
       }
-    }, 7 * 1000);
+    }, 30 * 1000);
     return () => clearInterval(timer);
   }, [filteredData.length]);
 
@@ -48,7 +45,6 @@ function DashboardProductionProcessStatus() {
       if (start !== startDate || end !== endDate) {
         setStartDate(start);
         setEndDate(end);
-        console.log('Date changed (new day) → refresh last 7 days');
         handleFilter(end); // ใช้ end เป็นฐานคำนวณช่วง 7 วัน
       }
     }, 60 * 1000); // เช็คทุก 1 นาที
@@ -85,12 +81,10 @@ function DashboardProductionProcessStatus() {
   // ให้ Table เรียกเมื่ออยาก refresh อัตโนมัติ (เฉพาะเมื่ออยู่หน้าสุดท้ายและเกิน 1 นาที)
   const handleAutoRefresh = (isLastPage = false) => {
     if (!isLastPage) {
-      console.log('Not on last page, skipping auto-refresh');
       return;
     }
 
     if (!lastApiCallTime) {
-      console.log('No previous API call time, proceeding with refresh');
       handleFilter();
       return;
     }
@@ -99,10 +93,7 @@ function DashboardProductionProcessStatus() {
     const timeDiff = (now - lastApiCallTime) / 1000 / 60; // ความต่างเป็นนาที
 
     if (timeDiff >= 1) {
-      console.log(`Auto-refresh on last page after ${timeDiff.toFixed(1)} minutes`);
       handleFilter();
-    } else {
-      console.log(`Skipping auto-refresh, only ${timeDiff.toFixed(1)} minutes since last call (need 1 minute)`);
     }
   };
 

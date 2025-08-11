@@ -56,6 +56,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
   useEffect(() => {
     if (totalPages > 0) {
       const interval = setInterval(() => {
+        // console.log('Process Status Page change interval: ', new Date().toLocaleTimeString('th-TH'));
         setCurrentPage(prev => {
           const next = (prev + 1) % totalPages;
           // เช็คว่าจะกลับไปหน้าแรกหรือไม่ (หมายถึงอยู่หน้าสุดท้าย)
@@ -66,7 +67,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
           }
           return next;
         });
-      }, 7000);
+      }, 30000);
       return () => clearInterval(interval);
     }
   }, [totalPages, onRefreshData]);
