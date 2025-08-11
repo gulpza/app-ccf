@@ -45,7 +45,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
   const [currentPage, setCurrentPage] = useState(0);
   const [lastUpdateTime, setLastUpdateTime] = useState(new Date().toLocaleTimeString('th-TH'));
   const [lastFetchDate, setLastFetchDate] = useState(new Date());
-  const cardsPerPage = 8;
+  const cardsPerPage = 9;
 
   const totalPages = Math.ceil(processedData.length / cardsPerPage);
   const getCurrentPageData = () => {

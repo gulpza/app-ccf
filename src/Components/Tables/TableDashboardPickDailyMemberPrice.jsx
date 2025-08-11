@@ -136,7 +136,7 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
           width: '100%'
         }}
       >
-        <div className="d-flex align-items-center" style={{ gap: '.75rem', flexWrap: 'wrap' }}>
+        <div className="d-flex align-items-center" style={{ gap: '1rem', flexWrap: 'wrap' }}>
           {/* โลโก้ซ้ายมือ */}
             {logoUrl && (
                       <Link to="/home">
