@@ -45,7 +45,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
   const [currentPage, setCurrentPage] = useState(0);
   const [lastUpdateTime, setLastUpdateTime] = useState(new Date().toLocaleTimeString('th-TH'));
   const [lastFetchDate, setLastFetchDate] = useState(new Date());
-  const cardsPerPage = 10;
+  const cardsPerPage = 8;
 
   const totalPages = Math.ceil(processedData.length / cardsPerPage);
   const getCurrentPageData = () => {
@@ -95,7 +95,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
           width: '100%'
         }}
       >
-        <div className="d-flex align-items-center" style={{ gap: '.75rem', flexWrap: 'wrap' }}>
+        <div className="d-flex align-items-center" style={{ gap: '1rem', flexWrap: 'wrap' }}>
           {/* โลโก้ซ้ายมือ */}
           {logoUrl && (
             <Link to="/home">
@@ -103,7 +103,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                 src={logoUrl}
                 alt="Company Logo"
                 className="img-fluid"
-                style={{ maxWidth: 'clamp(96px, 10vw, 140px)', height: 'auto' }}
+                style={{ maxWidth: 'clamp(50px, 8vw, 100px)', height: 'auto' }}
               />
             </Link>
           )}
@@ -111,14 +111,14 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
           {/* ข้อความ 2 บรรทัด: บน=หัวข้อ, ล่าง=วันที่/เวลา */}
           <div className="d-flex flex-column align-items-start text-start" style={{ rowGap: '.25rem' }}>
             <div className="d-flex align-items-center flex-wrap" style={{ columnGap: '.5rem' }}>
-              <h1 className="mb-0 fw-bold" style={{ fontSize: 'clamp(1.25rem, 3.5vw, 2.2rem)' }}>
+              <h1 className="mb-0 fw-bold" style={{ fontSize: 'clamp(1rem, 1vw, 2.2rem)' }}>
                 รายงานสถานะผัก
               </h1>
        
             </div>
 
             <div className="d-flex align-items-center flex-wrap" style={{ columnGap: '.5rem' }}>
-              <span className="text-success fw-bold" style={{ fontSize: 'clamp(1.2rem, 1.8vw, 1rem)' }}>
+              <span className="text-success fw-bold" style={{ fontSize: 'clamp(0.8rem, 1vw, 1rem)' }}>
                 <i className="fas fa-calendar-alt me-1" />
                 ข้อมูลล่าสุด: วันที่{' '}
                 {(() => {
@@ -131,7 +131,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
               </span>
                 </div>
                  <div className="d-flex align-items-center flex-wrap" style={{ columnGap: '.5rem' }}>
-              <span className="text-muted" style={{ fontSize: 'clamp(1.2rem, 1.4vw, 0.9rem)' }}>
+              <span className="text-muted" style={{ fontSize: 'clamp(0.8rem, 1vw, 1rem)' }}>
                 <i className="fas fa-clock me-1" />
                 อัพเดท:{' '}
                 {isLoading ? (
@@ -166,9 +166,8 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                 <th className="text-center fw-bold sticky-top" style={{ 
                   position: 'sticky', 
                   top: 0, 
-                  fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                  fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                   border: '2px solid #ffffff',
-                  padding: '1rem 0.4rem',
                   backgroundColor: '#228B22',
                   color: '#ffffff',
                   textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
@@ -179,9 +178,8 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                 <th className="text-center fw-bold sticky-top" style={{ 
                   position: 'sticky', 
                   top: 0, 
-                  fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                  fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                   border: '2px solid #ffffff',
-                  padding: '1rem 0.4rem',
                   backgroundColor: '#228B22',
                   color: '#ffffff',
                   textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
@@ -192,9 +190,8 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                 <th className="text-center fw-bold sticky-top" style={{ 
                   position: 'sticky', 
                   top: 0, 
-                  fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                  fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                   border: '2px solid #ffffff',
-                  padding: '1rem 0.4rem',
                   backgroundColor: '#228B22',
                   color: '#ffffff',
                   textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
@@ -205,9 +202,8 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                 <th className="text-center fw-bold sticky-top" style={{ 
                   position: 'sticky', 
                   top: 0, 
-                  fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                  fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                   border: '2px solid #ffffff',
-                  padding: '1rem 0.4rem',
                   backgroundColor: '#228B22',
                   color: '#ffffff',
                   textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
@@ -218,9 +214,8 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                 <th className="text-center fw-bold sticky-top" style={{ 
                   position: 'sticky', 
                   top: 0, 
-                  fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                  fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                   border: '2px solid #ffffff',
-                  padding: '1rem 0.4rem',
                   backgroundColor: '#228B22',
                   color: '#ffffff',
                   textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
@@ -239,7 +234,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                 }}>
                   <td className="text-center fw-bold" style={{ 
                     wordBreak: 'break-word', 
-                    fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                    fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
                     padding: '0.6rem 0.4rem'
                   }}>
@@ -256,7 +251,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                   </td>
                   <td className="text-center fw-bold" style={{ 
                     wordBreak: 'break-word', 
-                    fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                    fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
                     padding: '0.6rem 0.4rem'
                   }}>
@@ -264,16 +259,16 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                   </td>
                   <td className="text-center fw-bold" style={{ 
                     wordBreak: 'break-word', 
-                    fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                    fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
                     padding: '0.6rem 0.4rem'
                   }}>
                     {item.vegType || '-'}
                   </td>
                   <td className="text-center fw-bold" style={{ 
-                    fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                    fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
-                    padding: '0.6rem 0.4rem'
+                    padding: '0.2rem 0.4rem'
                   }}>
                     <span
                       className="fw-bold px-2 py-1 rounded"
@@ -284,16 +279,16 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                         minWidth: '3.5rem',
                         border: '2px solid #ffffff',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
-                        fontSize: 'clamp(1.5rem, 2vw, 1.3rem)'
+                        fontSize: 'clamp(1rem, 1.6vw, 1.2rem)'
                       }}
                     >
                       {typeof item.quantity === 'number' ? item.quantity.toFixed(2) : (item.quantity || '0.00')}
                     </span>
                   </td>
                   <td className="text-center fw-bold" style={{ 
-                    fontSize: 'clamp(1rem, 2.2vw, 1.4rem)',
+                    fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
-                    padding: '0.6rem 0.4rem'
+                    padding: '0.2rem 0.4rem'
                   }}>
                     <span
                       className="fw-bold px-2 py-1 rounded"
@@ -303,7 +298,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                         minWidth: '4.5rem',
                         border: '2px solid #ffffff',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
-                        fontSize: 'clamp(1.5rem, 2vw, 1.3rem)'
+                        fontSize: 'clamp(1rem, 1.6vw, 1.2rem)'
                       }}
                     >
                       {item.status || 'ยังไม่ได้เด็ด'}
@@ -316,8 +311,8 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                 <tr>
                   <td colSpan="5" className="text-center py-5" style={{ 
                     border: '1px solid #dee2e6',
-                    fontSize: 'clamp(1.5rem, 3vw, 2rem)',
-                    padding: '3rem'
+                    fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
+                    padding: '2rem'
                   }}>
                     <i className="fas fa-inbox text-muted mb-3" style={{ fontSize: '4rem' }} />
                     <div className="text-muted fw-bold">ไม่พบข้อมูล</div>
@@ -362,7 +357,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                   style={{
                     minWidth: 'clamp(40px, 4vw, 56px)',
                     height: 'clamp(40px, 4vw, 56px)',
-                    padding: '4px 10px',
+                    padding: '2px 10px',
                     fontSize: 'clamp(1rem, 2.2vw, 1.25rem)',
                     lineHeight: 1
                   }}

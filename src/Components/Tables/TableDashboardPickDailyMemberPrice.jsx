@@ -138,28 +138,28 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
       >
         <div className="d-flex align-items-center" style={{ gap: '.75rem', flexWrap: 'wrap' }}>
           {/* โลโก้ซ้ายมือ */}
-          {logoUrl && (
-            <Link to="/home">
-              <img
-                src={logoUrl}
-                alt="Company Logo"
-                className="img-fluid"
-                style={{ maxWidth: 'clamp(96px, 10vw, 140px)', height: 'auto' }}
-              />
-            </Link>
-          )}
+            {logoUrl && (
+                      <Link to="/home">
+                        <img
+                          src={logoUrl}
+                          alt="Company Logo"
+                          className="img-fluid"
+                          style={{ maxWidth: 'clamp(50px, 8vw, 100px)', height: 'auto' }}
+                        />
+                      </Link>
+                    )}
 
           {/* ข้อความ 2 บรรทัด: บน=หัวข้อ, ล่าง=วันที่/เวลา */}
           <div className="d-flex flex-column align-items-start text-start" style={{ rowGap: '.25rem' }}>
             <div className="d-flex align-items-center flex-wrap" style={{ columnGap: '.5rem' }}>
-              <h1 className="mb-0 fw-bold" style={{ fontSize: 'clamp(1.25rem, 3.5vw, 2.2rem)' }}>
+              <h1 className="mb-0 fw-bold" style={{ fontSize: 'clamp(1rem, 1vw, 2.2rem)' }}>
                 รายงานคนเด็ดประจำวัน
               </h1>
        
             </div>
 
             <div className="d-flex align-items-center flex-wrap" style={{ columnGap: '.5rem' }}>
-              <span className="text-success fw-bold" style={{ fontSize: 'clamp(1.2rem, 1.8vw, 1rem)' }}>
+              <span className="text-success fw-bold" style={{ fontSize: 'clamp(0.8rem, 1vw, 1rem)' }}>
                 <i className="fas fa-calendar-alt me-1" />
                 ข้อมูลล่าสุด: วันที่{' '}
                 {(() => {
@@ -172,7 +172,7 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
               </span>
                 </div>
                  <div className="d-flex align-items-center flex-wrap" style={{ columnGap: '.5rem' }}>
-              <span className="text-muted" style={{ fontSize: 'clamp(1.2rem, 1.4vw, 0.9rem)' }}>
+              <span className="text-muted" style={{ fontSize: 'clamp(0.8rem, 1vw, 1rem)' }}>
                 <i className="fas fa-clock me-1" />
                 อัพเดท:{' '}
                 {isLoading ? (
@@ -194,7 +194,7 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
         <div className="table-responsive">
           <table className="table table-striped w-100" style={{ 
              tableLayout: 'auto', 
-             fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+              fontSize: 'clamp(1rem, 2.2vw, 1.4rem)',
              border: '3px solid #228B22',
              borderCollapse: 'separate',
              borderSpacing: 0,
@@ -207,9 +207,9 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
                  <th className="text-center fw-bold sticky-top align-middle" style={{ 
                   position: 'sticky', 
                   top: 0, 
-                  fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                  fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                   border: '2px solid #ffffff',
-                  padding: '0.6rem 0.4rem',
+                  
                   backgroundColor: '#228B22',
                   color: '#ffffff',
                   textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
@@ -225,9 +225,9 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
                     style={{ 
                   position: 'sticky', 
                   top: 0, 
-                  fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                  fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                   border: '2px solid #ffffff',
-                  padding: '0.6rem 0.4rem',
+                  
                   backgroundColor: '#228B22',
                   color: '#ffffff',
                   textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
@@ -240,9 +240,9 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
                 <th className="text-center fw-bold sticky-top align-middle"  style={{ 
                   position: 'sticky', 
                   top: 0, 
-                  fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
+                  fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                   border: '2px solid #ffffff',
-                  padding: '0.6rem 0.4rem',
+                  
                   backgroundColor: '#228B22',
                   color: '#ffffff',
                   textShadow: '1px 1px 2px rgba(0,0,0,0.3)',
@@ -259,31 +259,31 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
                 <tr key={item.employee} style={{ backgroundColor: index % 2 === 0 ? '#f8f9fa' : '#ffffff' }}>
                   <td className="text-center fw-bold align-middle" style={{ 
                     wordBreak: 'break-word', 
-                    fontSize: 'clamp(1.5rem, 2.2vw, 1.4rem)',
-                    padding: '0.6rem 0.4rem',
-                    verticalAlign: 'middle',
-                    border: '1px solid #dee2e6'
+                      fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
+                      border: '1px solid #dee2e6',
+                      padding: '0.3rem 0.4rem'
                   }}>
                     {item.employee}
                   </td>
 
                   {item.prices.map((p) => (
                     <td key={p.price} className="text-center align-middle" style={{ 
-                      fontSize: 'clamp(1rem, 2.2vw, 1.4rem)',
-                      padding: '0.6rem 0.4rem',
-                      verticalAlign: 'middle',
-                      border: '1px solid #dee2e6'
+                      wordBreak: 'break-word', 
+                      fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
+                      border: '1px solid #dee2e6',
+                      padding: '0.3rem 0.4rem'
                     }}>
                       {p.weight > 0 ? (
                         <span
-                          className="fw-bold px-2 py-1 rounded"
+                          className="fw-bold px-2 py-0 rounded"
                           style={{
                             ...getPriceBadgeStyle(p.price),
                             display: 'inline-block',
-                            minWidth: '2.75rem',
-                            fontSize: 'clamp(1.5rem, 2vw, 1.3rem)',
+                            minWidth: '3.5rem',
                             border: '2px solid #ffffff',
-                            boxShadow: '0 2px 4px rgba(0,0,0,0.15)'
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
+                            fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
+                            padding: '0.1rem 0.5rem'
                           }}
                         >
                           {p.weight}
@@ -297,23 +297,24 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
                   <td
                     className="text-center fw-bold align-middle"
                     style={{ 
-                      fontSize: 'clamp(1rem, 2.2vw, 1.4rem)',
-                      padding: '0.6rem 0.4rem',
-                      verticalAlign: 'middle',
-                      border: '1px solid #dee2e6'
+                      wordBreak: 'break-word', 
+                      fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
+                      border: '1px solid #dee2e6',
+                      padding: '0.3rem 0.4rem'
                     }}
                   >
 
                       <span
-                          className="fw-bold px-2 py-1 rounded"
+                          className="fw-bold px-2 py-0 rounded"
                           style={{
                             backgroundColor: '#198754',
                             color: '#ffffff',
                             display: 'inline-block',
-                            minWidth: '2.75rem',
-                            fontSize: 'clamp(1.5rem, 2vw, 1.3rem)',
+                            minWidth: '3.5rem',
                             border: '2px solid #ffffff',
-                            boxShadow: '0 2px 4px rgba(0,0,0,0.15)'
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
+                            fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
+                            padding: '0.1rem 0.5rem'
                           }}
                         >
                           {item.total}
@@ -346,7 +347,7 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
             bottom: 0,
             background: '#fff',
             borderTop: '1px solid #e9ecef',
-            padding: '.5rem'
+            
           }}
         >
           <div className="container-fluid px-0">
