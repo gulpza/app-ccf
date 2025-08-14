@@ -9,7 +9,7 @@ const processData = (data) => {
     .map(item => ({
       date: item['วันที่รับผัก'] || '',
       farm: item['ชื่อไร่'] || '',
-      vegType: item['ประเภทผัก'] || '',
+      vegType: item['Show ประเภทผัก'] || '',
       quantity: item['Show จำนวน'] || 0,
       status: item['สถานะผัก']
     }))
@@ -45,12 +45,12 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
   const [currentPage, setCurrentPage] = useState(0);
   const [lastUpdateTime, setLastUpdateTime] = useState(new Date().toLocaleTimeString('th-TH'));
   const [lastFetchDate, setLastFetchDate] = useState(new Date());
-  const cardsPerPage = 9;
+  const rowsPerPage = 7;
 
-  const totalPages = Math.ceil(processedData.length / cardsPerPage);
+  const totalPages = Math.ceil(processedData.length / rowsPerPage);
   const getCurrentPageData = () => {
-    const startIndex = currentPage * cardsPerPage;
-    return processedData.slice(startIndex, startIndex + cardsPerPage);
+    const startIndex = currentPage * rowsPerPage;
+    return processedData.slice(startIndex, startIndex + rowsPerPage);
   };
 
   useEffect(() => {
@@ -148,7 +148,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
       </div>
 
       {/* ✅ พื้นที่ตาราง “เต็มกว้างเต็มสูง” ของส่วนที่เหลือ: scroll ได้ */}
-      <div className="flex-grow-1 w-100"
+      <div className="w-100"
      style={{ overflow:'auto' }}>
         <div className="table-responsive">
            <table className="table table-striped w-100" style={{ 

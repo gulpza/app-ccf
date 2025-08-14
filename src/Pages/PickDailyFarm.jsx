@@ -38,7 +38,11 @@ function PickDailyFarm() {
     fetch(`${apiKey}${params}`)
       .then(response => response.json())
       .then(data => {
-
+        
+        data = data.filter(item => {
+          return item['ผักก้าน'] == true;
+        });
+        
        setFilteredData(data);
 
       })

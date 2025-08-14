@@ -41,14 +41,14 @@ const getPriceLabel = (p) => {
   if (v === 29) {
     return (
       <span style={{ display: 'inline-block', lineHeight: 1.1 }}>
-        โหระพา<br />กะเพราเกษตร
+        โหระพา<br />กะเพรา
       </span>
     );
   }
   if (v === 34) {
     return (
       <span style={{ display: 'inline-block', lineHeight: 1.1 }}>
-        กะเพราป่า<br />แมงลัก
+        แมงลัก<br />สะระแหน่
       </span>
     );
   }
@@ -68,7 +68,7 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
   const [currentPage, setCurrentPage] = useState(0);
   const [lastUpdateTime, setLastUpdateTime] = useState(new Date().toLocaleTimeString('th-TH'));
   const [lastFetchDate, setLastFetchDate] = useState(new Date());
-  const cardsPerPage = 10;
+  const rowsPerPage = 7;
 
   // รวมยอดต่อพนักงาน (แบบตัวเลข) แล้วค่อยแปลงเป็นข้อความตอนแสดงผล
   const employeeTotals = employees.map(emp =>
@@ -88,10 +88,10 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
     return acc;
   }, []);
 
-  const totalPages = Math.ceil(dataList.length / cardsPerPage);
+  const totalPages = Math.ceil(dataList.length / rowsPerPage);
   const getCurrentPageData = () => {
-    const startIndex = currentPage * cardsPerPage;
-    return dataList.slice(startIndex, startIndex + cardsPerPage);
+    const startIndex = currentPage * rowsPerPage;
+    return dataList.slice(startIndex, startIndex + rowsPerPage);
   };
 
   useEffect(() => {
@@ -189,7 +189,7 @@ const TableDashboardPickDailyMemberPrice = ({ data, onRefreshData, isLoading, st
       </div>
 
       {/* ✅ พื้นที่ตาราง “เต็มกว้างเต็มสูง” ของส่วนที่เหลือ: scroll ได้ */}
-      <div className="flex-grow-1 w-100"
+      <div className="w-100"
      style={{ overflow:'auto' }}>
         <div className="table-responsive">
           <table className="table table-striped w-100" style={{ 
