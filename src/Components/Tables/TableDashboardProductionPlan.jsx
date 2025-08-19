@@ -8,8 +8,9 @@ const processData = (data) => {
     .map(item => {
       const planAmount = Number(item['จำนวนที่ส่ง'] || 0); // แผนที่กำหนด
       const productAmount = Number(item['total'] || 0); // ผลิตจริง
-      const progressPercent = planAmount > 0 ? Math.min((productAmount / planAmount) * 100, 100) : 0;
-      
+      // const progressPercent = planAmount > 0 ? Math.min((productAmount / planAmount) * 100, 100) : 0;
+      const progressPercent = planAmount > 0 ? (productAmount / planAmount) * 100 : 0;
+
       return {
         deliveryDate: item['วันที่ส่ง'] || '',
         deliveryRound: item['รอบส่ง'] || '',
@@ -308,23 +309,48 @@ const TableDashboardProductionPlan = ({ data, onRefreshData, isLoading, startDat
                   }}>
                     {item.remark || '-'}
                   </td>
-                  <td className="text-center fw-bold" style={{ 
-                    wordBreak: 'break-word', 
+                <td className="text-center fw-bold" style={{ 
                     fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
-                    padding: '0.6rem 0.4rem',
-                    color: '#007bff'
+                    padding: '0.2rem 0.4rem'
                   }}>
-                    {item.planAmount.toLocaleString()}
+                  <span
+                      className="fw-bold px-2 py-1 rounded"
+                      style={{
+                        backgroundColor: '#007bff',
+                        color: '#ffffff',
+                        display: 'inline-block',
+                        width: '6rem',   // 👈 กำหนดความกว้างตายตัว
+                        textAlign: 'center',
+                        border: '2px solid #ffffff',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
+                        fontSize: 'clamp(1rem, 1.6vw, 1.2rem)'
+                      }}
+                    >
+                      {item.planAmount.toLocaleString()}
+                    </span>
                   </td>
-                  <td className="text-center fw-bold" style={{ 
-                    wordBreak: 'break-word', 
+
+                   <td className="text-center fw-bold" style={{ 
                     fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
-                    padding: '0.6rem 0.4rem',
-                    color: '#28a745'
+                    padding: '0.2rem 0.4rem'
                   }}>
-                    {item.productAmount.toLocaleString()}
+                    <span
+                      className="fw-bold px-2 py-1 rounded"
+                      style={{
+                        backgroundColor: '#28a745',
+                        color: '#ffffff',
+                        display: 'inline-block',
+                        width: '6rem',   // 👈 กำหนดความกว้างตายตัว
+                        textAlign: 'center',
+                        border: '2px solid #ffffff',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
+                        fontSize: 'clamp(1rem, 1.6vw, 1.2rem)'
+                      }}
+                    >
+                      {item.productAmount.toLocaleString()}
+                    </span>
                   </td>
                   <td className="text-center" style={{ 
                     wordBreak: 'break-word', 
@@ -344,11 +370,12 @@ const TableDashboardProductionPlan = ({ data, onRefreshData, isLoading, startDat
                           style={{
                             width: `${item.progressPercent}%`,
                             backgroundColor: (() => {
-                              if (item.progressPercent < 25) return '#dc3545'; // แดง (0-24%)
-                              if (item.progressPercent < 50) return '#fd7e14'; // ส้ม (25-49%)
-                              if (item.progressPercent < 75) return '#ffc107'; // เหลือง (50-74%)
-                              if (item.progressPercent < 99) return '#007bff'; // เหลือง (50-74%)
-                              return '#28a745'; // เขียวเข้ม (>=100%)
+                              if (item.progressPercent < 25) return '#b6b6b6ff'; //  (0-24%)
+                              if (item.progressPercent < 50) return '#ffc107'; //  (25-49%)
+                              if (item.progressPercent < 75) return '#fd7e14'; //  (50-74%)
+                              if (item.progressPercent < 99) return '#007bff'; //  (75-99%)
+                              if (item.progressPercent === 100) return '#28a745'; //  (100%)
+                              return '#dc3545'; //  (>=100%)
                             })(),
                             transition: 'width 0.3s ease'
                           }}
@@ -360,11 +387,12 @@ const TableDashboardProductionPlan = ({ data, onRefreshData, isLoading, startDat
                       <span className="fw-bold" style={{ 
                         color: (() => {
                           // คำนวณสีข้อความตามเปอร์เซ็นต์
-                          if (item.progressPercent <= 25) return '#dc3545'; // แดง
-                          if (item.progressPercent <= 50) return '#fd7e14'; // ส้ม
-                          if (item.progressPercent <= 75) return '#ffc107'; // เหลือง
-                          if (item.progressPercent < 99) return '#007bff'; // เหลือง
-                          return '#28a745'; // เขียวเข้ม
+                          if (item.progressPercent <= 25) return '#b6b6b6ff'; // 
+                          if (item.progressPercent <= 50) return '#ffc107'; // 
+                          if (item.progressPercent <= 75) return '#fd7e14'; // 
+                          if (item.progressPercent <= 99) return '#007bff'; // 
+                          if (item.progressPercent === 100) return '#28a745'; // 
+                          return '#dc3545'; // เขียวเข้ม
                         })()
                       }}>
                         {item.progressPercent.toFixed(0)}%
