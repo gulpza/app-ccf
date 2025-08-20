@@ -59,7 +59,7 @@ function Yield() {
   };
 
   const handleVegType = () => {
-    return fetch(`${apiKeyPick}?action=vegtype`)
+    return fetch(`${apiKeyPick}?action=vegType`)
       .then((response) => response.json())
       .then((data) => {
         setVegTypes(data);

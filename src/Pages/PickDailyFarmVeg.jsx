@@ -54,7 +54,7 @@ function PickDailyFarmVeg() {
   };
 
   const handleVegType = () => {
-    return fetch(`${apiKey}?action=vegtype`)
+    return fetch(`${apiKey}?action=vegType`)
       .then((response) => response.json())
       .then((data) => {
         setVegTypes(data);

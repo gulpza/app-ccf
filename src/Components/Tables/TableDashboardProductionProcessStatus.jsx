@@ -9,9 +9,12 @@ const processData = (data) => {
     .map(item => ({
       date: item['วันที่รับผัก'] || '',
       farm: item['ชื่อไร่'] || '',
+      farmMyanmar: item['ชื่อไร่พม่า'] || '',
       vegType: item['Show ประเภทผัก'] || '',
+      vegTypeMyanmar: item['Show ประเภทผักพม่า'] || '',
       quantity: item['Show จำนวน'] || 0,
-      status: item['สถานะผัก']
+      status: item['สถานะผัก'],
+      statusMyanmar: item['สถานะผักพม่า'] || ''
     }))
     .sort((a, b) => {
       // Sort วันที่รับผักจากน้อยไปมาก
@@ -234,9 +237,10 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                 }}>
                   <td className="text-center fw-bold" style={{ 
                     wordBreak: 'break-word', 
-                    fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
+                    fontSize: 'clamp(1.2rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
-                    padding: '0.6rem 0.4rem'
+                    padding: '0.6rem 0.4rem',
+                    verticalAlign: 'middle'
                   }}>
                     {(() => {
                       // แปลงวันที่เป็นรูปแบบ DD/MM/YYYY (พศ)
@@ -253,22 +257,31 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                     wordBreak: 'break-word', 
                     fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
-                    padding: '0.6rem 0.4rem'
+                    padding: '0.6rem 0.4rem',
+                    verticalAlign: 'middle'
                   }}>
-                    {item.farm || '-'}
+                    <div>
+                      {item.farm}
+                      <br />
+                      {item.farmMyanmar || '-'}
+                    </div>
                   </td>
                   <td className="text-center fw-bold" style={{ 
                     wordBreak: 'break-word', 
                     fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
-                    padding: '0.6rem 0.4rem'
+                    padding: '0.6rem 0.4rem',
+                    verticalAlign: 'middle'
                   }}>
                     {item.vegType || '-'}
+                    <br />
+                    {item.vegTypeMyanmar || '-'}
                   </td>
                   <td className="text-center fw-bold" style={{ 
                     fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
-                    padding: '0.2rem 0.4rem'
+                    padding: '0.2rem 0.4rem',
+                    verticalAlign: 'middle'
                   }}>
                     <span
                       className="fw-bold px-2 py-1 rounded"
@@ -276,10 +289,10 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                         backgroundColor: '#007bff',
                         color: '#ffffff',
                         display: 'inline-block',
-                        minWidth: '3.5rem',
+                        minWidth: '4.5rem',
                         border: '2px solid #ffffff',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
-                        fontSize: 'clamp(1rem, 1.6vw, 1.2rem)'
+                        fontSize: 'clamp(1.4rem, 2vw, 1.2rem)'
                       }}
                     >
                       {typeof item.quantity === 'number' ? item.quantity.toFixed(2) : (item.quantity || '0.00')}
@@ -288,7 +301,8 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                   <td className="text-center fw-bold" style={{ 
                     fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
-                    padding: '0.2rem 0.4rem'
+                    padding: '0.2rem 0.4rem',
+                    verticalAlign: 'middle'
                   }}>
                     <span
                       className="fw-bold px-2 py-1 rounded"
@@ -302,6 +316,8 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                       }}
                     >
                       {item.status || 'ยังไม่ได้เด็ด'}
+                      <br/>
+                      {item.statusMyanmar || '-'}
                     </span>
                   </td>
                 </tr>
