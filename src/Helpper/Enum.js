@@ -1,5 +1,7 @@
+import logoImage from '../assets/logo.jpg';
+
 const Enum = {
-    URL_LOGO: 'https://chaicharoenfresh.com/wp-content/uploads/2024/03/cropped-logo-ccf-300x300.png',
+    URL_LOGO: logoImage,
     // Add more logo URLs here...
 };
 
