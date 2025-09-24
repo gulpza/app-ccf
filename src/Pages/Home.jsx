@@ -9,7 +9,7 @@ const Home = () => {
         <div className="text-center mb-4">
           <img src={Enum.URL_LOGO} alt="Company Logo" className="img-fluid d-block mx-auto mb-2" style={{ maxWidth: '120px' }} />
           <h1 className="fw-bold">ยินดีต้อนรับสู่ระบบรายงาน</h1>
-          <p className="text-muted">เลือกรีพอร์ตที่ต้องการดูข้อมูล</p>
+          <p className="text-muted">เลือกรีพอร์ตที่ต้องการดูข้อมูล..</p>
         </div>
         <div className="row g-4">
           <div className="col-12 col-sm-6 col-md-4 col-lg-3">
