@@ -48,7 +48,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
   const [currentPage, setCurrentPage] = useState(0);
   const [lastUpdateTime, setLastUpdateTime] = useState(new Date().toLocaleTimeString('th-TH'));
   const [lastFetchDate, setLastFetchDate] = useState(new Date());
-  const rowsPerPage = 7;
+  const rowsPerPage = 5;
 
   const totalPages = Math.ceil(processedData.length / rowsPerPage);
   const getCurrentPageData = () => {
@@ -239,7 +239,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                     wordBreak: 'break-word', 
                     fontSize: 'clamp(1.2rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
-                    padding: '0.6rem 0.4rem',
+                    padding: '0.2rem 0.4rem',
                     verticalAlign: 'middle'
                   }}>
                     {(() => {
@@ -257,7 +257,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                     wordBreak: 'break-word', 
                     fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
-                    padding: '0.6rem 0.4rem',
+                    padding: '0.2rem 0.4rem',
                     verticalAlign: 'middle'
                   }}>
                     <div>
@@ -270,7 +270,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                     wordBreak: 'break-word', 
                     fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
                     border: '1px solid #dee2e6',
-                    padding: '0.6rem 0.4rem',
+                    padding: '0.2rem 0.4rem',
                     verticalAlign: 'middle'
                   }}>
                     {item.vegType || '-'}
@@ -292,7 +292,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                         minWidth: '4.5rem',
                         border: '2px solid #ffffff',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
-                        fontSize: 'clamp(1.4rem, 2vw, 1.2rem)'
+                        fontSize: 'clamp(1rem, 2vw, 1.2rem)'
                       }}
                     >
                       {typeof item.quantity === 'number' ? item.quantity.toFixed(2) : (item.quantity || '0.00')}
@@ -312,7 +312,7 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                         minWidth: '4.5rem',
                         border: '2px solid #ffffff',
                         boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
-                        fontSize: 'clamp(1rem, 1.6vw, 1.2rem)'
+                        fontSize: 'clamp(0.8rem, 1.4vw, 1rem)'
                       }}
                     >
                       {item.status || 'ยังไม่ได้เด็ด'}
@@ -327,8 +327,8 @@ const TableDashboardProductionProcessStatus = ({ data, onRefreshData, isLoading,
                 <tr>
                   <td colSpan="5" className="text-center py-5" style={{ 
                     border: '1px solid #dee2e6',
-                    fontSize: 'clamp(1rem, 1.6vw, 1.2rem)',
-                    padding: '2rem'
+                    fontSize: 'clamp(0.8rem, 1.4vw, 1rem)',
+                    padding: '1rem'
                   }}>
                     <i className="fas fa-inbox text-muted mb-3" style={{ fontSize: '4rem' }} />
                     <div className="text-muted fw-bold">ไม่พบข้อมูล</div>
