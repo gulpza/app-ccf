@@ -1,4 +1,3 @@
-import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { VerifyNumber } from '../Helpper/index';
@@ -134,22 +133,24 @@ const DynamicRandomTest = ({ data }) => {
         <ResponsiveContainer width="100%" height={chartHeight}>
           <BarChart
             data={chartData}
-            layout="vertical"
-            margin={{ top: 10, right: 20, left: 0, bottom: 5 }}
+            margin={{ top: 30, right: 20, left: 0, bottom: 5 }}
             barCategoryGap="20%"
             barSize={15}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis type="number" />
-            <YAxis
+            <XAxis 
               type="category"
               dataKey="employeeName"
-              width={150}
               interval={0}
               tickMargin={10}
+              angle={-90}
+              textAnchor="end"
+              height={180}
+              tick={{ fontSize: 12 }}
             />
+            <YAxis type="number" />
             <Tooltip />
-            <Legend />
+            <Legend wrapperStyle={{ paddingTop: '20px' }} />
             <Bar dataKey="insect" fill="#8884d8" name="หนอน/แมลง" />
             <Bar dataKey="wormNest" fill="#82ca9d" name="รังหนอน" />
             <Bar dataKey="ovary" fill="#ffc658" name="รังไข่" />
