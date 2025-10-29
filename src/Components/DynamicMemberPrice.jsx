@@ -5,6 +5,14 @@ const pivotData = (data) => {
   const pivot = {};
   const prices = [...new Set(data.map(item => item['Price']))].sort((a, b) => a - b);
   const employees = [...new Set(data.map(item => `[${item['รหัสพนักงาน']}] ${item['ชื่อพนักงาน']} ${item['นามสกุล']}`))].sort((a, b) => a.localeCompare(b));
+  
+  // Create a mapping of price to category
+  const priceToCategory = {};
+  data.forEach(item => {
+    if (!priceToCategory[item['Price']]) {
+      priceToCategory[item['Price']] = item['ประเภทผัก'];
+    }
+  });
 
   employees.forEach(employee => {
     pivot[employee] = {};
@@ -16,6 +24,7 @@ const pivotData = (data) => {
   data.forEach(item => {
     const employee = `[${item['รหัสพนักงาน']}] ${item['ชื่อพนักงาน']} ${item['นามสกุล']}`;
     const price = item['Price'];
+    const category = item['ประเภทผัก'];
     const weight = item['น้ำหนัก'];
 
     if (pivot[employee][price] === undefined) {
@@ -25,11 +34,11 @@ const pivotData = (data) => {
     pivot[employee][price] += weight;
   });
 
-  return { pivot, prices, employees };
+  return { pivot, prices, employees, priceToCategory };
 };
 
 const DynamicMemberPrice = ({ data }) => {
-  const { pivot, prices, employees } = pivotData(data);
+  const { pivot, prices, employees, priceToCategory } = pivotData(data);
 
   // Calculate the total for each price
   const priceTotals = prices.map(price => 
@@ -52,7 +61,7 @@ const DynamicMemberPrice = ({ data }) => {
           <tr>
             <th>พนักงาน/ราคา</th>
             {prices.map(price => (
-              <th key={price}>{price}</th>
+              <th key={price}>{priceToCategory[price]}</th>
             ))}
             <th className="border-left">รวม</th>
           </tr>
