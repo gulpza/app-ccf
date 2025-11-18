@@ -217,7 +217,7 @@ function FarmVegShipment() {
             <th scope="col">แผน</th>
             <th scope="col">ยอดชั่งหน้าสวน</th>
             <th scope="col">ส่งจริง</th>
-            <th scope="col">สถานะการส่ง</th>
+            {/* <th scope="col">สถานะการส่ง</th> */}
             <th scope="col">หมายเหตุ</th>
           </tr>
         </thead>
@@ -231,7 +231,7 @@ function FarmVegShipment() {
                 <td>{item.plan.toFixed(2)}</td>
                 <td>{item.farmWeight > 0 ? item.farmWeight.toFixed(2) : '-'}</td>
                 <td>{item.actualDelivery > 0 ? item.actualDelivery.toFixed(2) : '-'}</td>
-                <td>
+                {/* <td>
                   <span className={`badge ${
                     item.deliveryStatus === 'ส่งแล้ว' ? 'bg-success' : 
                     item.deliveryStatus === 'ยกเลิก' ? 'bg-danger' : 
@@ -239,7 +239,7 @@ function FarmVegShipment() {
                   }`}>
                     {item.deliveryStatus}
                   </span>
-                </td>
+                </td> */}
                 <td>{item.remark || '-'}</td>
               </tr>
             ))
