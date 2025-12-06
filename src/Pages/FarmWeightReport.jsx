@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Spinner } from 'react-bootstrap';
@@ -13,7 +13,7 @@ function formatDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-function FarmVegShipment() {
+function FarmWeightReport() {
   const [filteredData, setFilteredData] = useState([]);
   const [farmName, setFarmName] = useState('');
   const [inputRawmat, setInputRawmat] = useState([]);
@@ -21,6 +21,8 @@ function FarmVegShipment() {
   const [farms, setFarms] = useState([]);
   const [vegTypeCode, setVegTypeCode] = useState('');
   const [vegTypes, setVegTypes] = useState([]);
+  const [orderPlans, setOrderPlans] = useState([]);
+  const [remark, setRemark] = useState('');
   const [startDate, setStartDate] = useState(formatDate(new Date())); // Start date default to today
   const [endDate, setEndDate] = useState(formatDate(new Date())); // End date default to today
   const [loading, setLoading] = useState(false); // State variable for loading indicator
@@ -32,7 +34,7 @@ function FarmVegShipment() {
 
   const handleInitialLoad = () => {
     setLoading(true);
-    Promise.all([handleFarm(), handleVegType()])
+    Promise.all([handleFarm(), handleVegType(), handleOrderPlan()])
       .then(() => {
         setLoading(false);
         // setInitialLoad(false);
@@ -66,13 +68,24 @@ function FarmVegShipment() {
       });
   };
 
-  const handleFarmVegShipment = async () => {
-    let params = "?action=get-farm-veg-shipment";
+    const handleOrderPlan = () => {
+    return fetch(`${apiKeyPick}?action=order-plan`)
+      .then((response) => response.json())
+      .then((data) => {
+        setOrderPlans(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching vegetable type data:', error);
+      });
+  };
+
+  const handleFarmWeightReport = async () => {
+    let params = "?action=get-farm-weight-report";
     params += `&startDate=${encodeURIComponent(startDate.trim())}`;
     params += `&endDate=${encodeURIComponent(endDate.trim())}`;
     params += `&farmName=${encodeURIComponent(farmName.trim().toUpperCase())}`;
     params += `&typeName=${encodeURIComponent(vegTypeCode.trim().toUpperCase())}`;
-
+    params += `&remark=${encodeURIComponent(remark.trim().toUpperCase())}`;    
     return fetch(`${apiKeyPick}${params}`)
       .then((response) => response.json())
       .then((data) => {
@@ -89,7 +102,7 @@ function FarmVegShipment() {
     setLoading(true);
 
     try {
-      let result = await handleFarmVegShipment();
+      let result = await handleFarmWeightReport();
       
       result = result.map(item => ({
         genId: item['GenId'] || '',
@@ -138,6 +151,7 @@ function FarmVegShipment() {
     setEndDate(formatDate(new Date()));
     setFarmName('');
     setVegTypeCode('');
+    setOrderPlanCode('');
     setFilteredData([]);
   };
 
@@ -189,6 +203,19 @@ function FarmVegShipment() {
           <option value="">เลือกประเภทผัก</option>
           {vegTypes.map((vegType) => (
             <option key={vegType['Code']} value={vegType['TypeName']}>{vegType['TypeName']}</option>
+          ))}
+        </select>
+
+        <label htmlFor="orderPlanSelect" className="form-label mt-3 me-3">สถานที่ส่ง:</label>
+        <select
+          id="orderPlanSelect"
+          className="form-select me-3"
+          value={remark}
+          onChange={(e) => setRemark(e.target.value)}
+        >
+          <option value="">เลือกสถานที่ส่ง</option>
+          {orderPlans.map((plan) => (
+            <option key={plan['ชื่อสถานที่']} value={plan['ชื่อสถานที่']}>{plan['ชื่อสถานที่']}</option>
           ))}
         </select>
         <button
@@ -254,4 +281,4 @@ function FarmVegShipment() {
   );
 }
 
-export default FarmVegShipment;
+export default FarmWeightReport;

@@ -16,7 +16,7 @@ import Yield from './Pages/Yield';
 import DashboardPickDailyMemberPrice from './Pages/DashboardPickDailyMemberPrice';
 import DashboardProductionProcessStatus from './Pages/DashboardProductionProcessStatus';
 import DashboardProductionPlan from './Pages/DashboardProductionPlan';
-import FarmVegShipment from './Pages/FarmVegShipment';
+import FarmWeightReport from './Pages/FarmWeightReport';
 
 function App() {
   // const logoUrl = 'https://chaicharoenfresh.com/wp-content/uploads/2024/03/cropped-logo-ccf-300x300.png';
@@ -45,7 +45,7 @@ function App() {
           <Route path="/dashboard-pick-daily-member-price" element={<DashboardPickDailyMemberPrice />} />
           <Route path="/dashboard-production-process-status" element={<DashboardProductionProcessStatus />} />
           <Route path="/dashboard-production-plan" element={<DashboardProductionPlan />} />
-          <Route path="/farm-veg-shipment" element={<FarmVegShipment />} />
+          <Route path="/farm-weight-report" element={<FarmWeightReport />} />
         </Routes>
       </div>
     </Router>
