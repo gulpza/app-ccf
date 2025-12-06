@@ -22,7 +22,7 @@ function FarmWeightReport() {
   const [vegTypeCode, setVegTypeCode] = useState('');
   const [vegTypes, setVegTypes] = useState([]);
   const [orderPlans, setOrderPlans] = useState([]);
-  const [remark, setRemark] = useState('');
+  const [remark, setRemark] = useState('ส่งโรงงาน');
   const [startDate, setStartDate] = useState(formatDate(new Date())); // Start date default to today
   const [endDate, setEndDate] = useState(formatDate(new Date())); // End date default to today
   const [loading, setLoading] = useState(false); // State variable for loading indicator
