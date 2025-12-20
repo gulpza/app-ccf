@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Enum from '../Helpper/Enum';
 
@@ -12,7 +11,7 @@ const Home = () => {
           <p className="text-muted">เลือกรีพอร์ตที่ต้องการดูข้อมูล</p>
         </div>
         <div className="row g-4">
-          <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+           <div className="col-12 col-sm-6 col-md-4 col-lg-3">
             <Link to="/pick-daily-member-record" className="text-decoration-none">
               <div className="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
                 <div className="card-body text-center">
@@ -76,7 +75,7 @@ const Home = () => {
             <Link to="/hair-rolling" className="text-decoration-none">
               <div className="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
                 <div className="card-body text-center">
-                  <i className="fa-solid fas fa-wind fa-3x mb-3 text-primary"></i>
+                  <i className="fa-solid fa-wind fa-3x mb-3 text-primary"></i>
                   <h5 className="card-title fw-semibold">Hair Rolling</h5>
                 </div>
               </div>
@@ -148,6 +147,16 @@ const Home = () => {
                 <div className="card-body text-center">
                   <i className="fa-solid fas fa-calendar-check fa-3x mb-3 text-primary"></i>
                   <h5 className="card-title fw-semibold">Dashboard <br/>แผนการผลิต</h5>
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+            <Link to="/farm-weight-report" className="text-decoration-none">
+              <div className="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
+                <div className="card-body text-center">
+                  <i className="fa-solid fas fa-truck fa-3x mb-3 text-primary"></i>
+                  <h5 className="card-title fw-semibold">การจัดส่งผักจากไร่</h5>
                 </div>
               </div>
             </Link>

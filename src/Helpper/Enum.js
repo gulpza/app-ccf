@@ -1,7 +1,7 @@
-import logo from '../assets/logo.jpg';
+import logoImage from '../assets/logo.jpg';
 
 const Enum = {
-    URL_LOGO: logo,
+    URL_LOGO: logoImage,
     // Add more logo URLs here...
 };
 
