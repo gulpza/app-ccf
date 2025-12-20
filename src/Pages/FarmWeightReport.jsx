@@ -26,7 +26,7 @@ function FarmWeightReport() {
   const [startDate, setStartDate] = useState(formatDate(new Date())); // Start date default to today
   const [endDate, setEndDate] = useState(formatDate(new Date())); // End date default to today
   const [loading, setLoading] = useState(false); // State variable for loading indicator
-  const apiKeyPick = import.meta.env.VITE_SHEET_PICK_API_KEY;
+  const apiKeyPick = import.meta.env.VITE_SHEET_FARM_LINEOA_API_KEY;
 
   useEffect(() => {
     handleInitialLoad();
