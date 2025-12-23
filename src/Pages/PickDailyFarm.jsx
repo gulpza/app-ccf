@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Spinner } from 'react-bootstrap';
-import moment from 'moment';
 import DynamicTable from '../Components/DynamicFarm';
 import Enum from '../Helpper/Enum';
 
@@ -40,9 +39,8 @@ function PickDailyFarm() {
       .then(data => {
         
         data = data.filter(item => {
-          return item['ผักก้าน'] == true;
+          return item['ผักก้าน'] == true && item['Price'] > 0;
         });
-        
        setFilteredData(data);
 
       })

@@ -1,4 +1,3 @@
-import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import moment from 'moment';
 
@@ -13,6 +12,7 @@ const pivotData = (data) => {
     pivot[farm] = {};
   });
 
+  var t = data.filter(e => e['Price'] < 1);
   data.forEach(item => {
     const date = moment(item['วันที่เด็ด']).format('DD/MM');
     const farm = item['ชื่อไร่'];
@@ -44,7 +44,6 @@ const pivotData = (data) => {
 
 const DynamicFarm = ({ data }) => {
   const { pivot, dates, farms } = pivotData(data);
-
   const sumValues = (date) => {
     return farms.reduce((sum, farm) => {
       return sum + Object.values(pivot[farm]).reduce((farmSum, vegetableGroups) => {
@@ -71,22 +70,29 @@ const DynamicFarm = ({ data }) => {
           </thead>
           <tbody>
             {farms.flatMap(farm => {
-              const dateGroups = Object.keys(pivot[farm]);
+              const dateGroups = Object.keys(pivot[farm]).sort((a, b) => {
+                // Convert DD/MM to sortable format
+                const [dayA, monthA] = a.split('/');
+                const [dayB, monthB] = b.split('/');
+                const dateA = new Date(2024, parseInt(monthA) - 1, parseInt(dayA));
+                const dateB = new Date(2024, parseInt(monthB) - 1, parseInt(dayB));
+                return dateA - dateB;
+              });
               return dateGroups.flatMap(dateRawMat => {
-                const vegetableTypes = Object.keys(pivot[farm][dateRawMat]);
+                const vegetableTypes = Object.keys(pivot[farm][dateRawMat]).sort();
                 return vegetableTypes.map((vegType, index) => (
-                  <tr key={`${farm}-${dateRawMat}-${vegType}-${index}`}>
-                    {index === 0 && <td rowSpan={vegetableTypes.length}>{farm}</td>}
-                    <td>{vegType}</td>
-                    {index === 0 && <td rowSpan={vegetableTypes.length}>{dateRawMat}</td>}
-                    {dates.map(date => (
-                      <td key={date}>
-                        {pivot[farm][dateRawMat][vegType][date]
-                          ? pivot[farm][dateRawMat][vegType][date].toFixed(2)
-                          : 0}
-                      </td>
-                    ))}
-                  </tr>
+              <tr key={`${farm}-${dateRawMat}-${vegType}-${index}`}>
+                <td>{farm}</td>
+                <td>{vegType}</td>
+                <td>{dateRawMat}</td>
+                {dates.map(date => (
+                  <td key={date}>
+                    {pivot[farm][dateRawMat][vegType][date]
+                      ? pivot[farm][dateRawMat][vegType][date].toFixed(2)
+                      : 0}
+                  </td>
+                ))}
+              </tr>
                 ));
               });
             })}
