@@ -59,7 +59,7 @@ function DashboardVegDailyPlan() {
     const start = formatDate(base); // วันเริ่มต้น = วันปัจจุบัน
     
     const endObj = new Date(base);
-    endObj.setDate(base.getDate() + 1); // วันสิ้นสุด = วันปัจจุบัน + 1
+    endObj.setDate(base.getDate()); // วันสิ้นสุด = วันปัจจุบัน + 1
     const end = formatDate(endObj);
 
     // sync state
