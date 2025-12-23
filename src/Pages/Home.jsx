@@ -11,54 +11,7 @@ const Home = () => {
           <p className="text-muted">เลือกรีพอร์ตที่ต้องการดูข้อมูล</p>
         </div>
 
-        {/* กลุ่ม Dashboard */}
-        <div className="mb-5">
-          <h3 className="fw-bold mb-3 text-primary">
-            <i className="fas fa-chart-line me-2"></i>Dashboard
-          </h3>
-          <div className="row g-4">
-            <div className="col-12 col-sm-6 col-md-4 col-lg-3">
-              <Link to="/dashboard-pick-daily-member-price" className="text-decoration-none">
-                <div className="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
-                  <div className="card-body text-center">
-                    <i className="fa-solid fas fa-money-bill-wave fa-3x mb-3 text-primary"></i>
-                    <h5 className="card-title fw-semibold">Dashboard <br/>รายงานคนเด็ดประจำวัน</h5>
-                  </div>
-                </div>
-              </Link>
-            </div>  
-            <div className="col-12 col-sm-6 col-md-4 col-lg-3">
-              <Link to="/dashboard-production-process-status" className="text-decoration-none">
-                <div className="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
-                  <div className="card-body text-center">
-                    <i className="fa-solid fas fa-cogs fa-3x mb-3 text-primary"></i>
-                    <h5 className="card-title fw-semibold">Dashboard <br/>รายงานสถานะผัก</h5>
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className="col-12 col-sm-6 col-md-4 col-lg-3">
-              <Link to="/dashboard-production-plan" className="text-decoration-none">
-                <div className="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
-                  <div className="card-body text-center">
-                    <i className="fa-solid fas fa-calendar-check fa-3x mb-3 text-primary"></i>
-                    <h5 className="card-title fw-semibold">Dashboard <br/>แผนการผลิต</h5>
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className="col-12 col-sm-6 col-md-4 col-lg-3">
-              <Link to="/dashboard-veg-daily-plan" className="text-decoration-none">
-                <div className="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
-                  <div className="card-body text-center">
-                    <i className="fa-solid fas fa-clipboard-check fa-3x mb-3 text-primary"></i>
-                    <h5 className="card-title fw-semibold">Dashboard <br/>แผนผักประจำวัน</h5>
-                  </div>
-                </div>
-              </Link>
-            </div>
-          </div>
-        </div>
+
 
         {/* กลุ่มรายงานทั่วไป */}
         <div>
@@ -187,7 +140,59 @@ const Home = () => {
             </Link>
           </div>
         </div>
+     
+     
       </div>
+
+        {/* กลุ่ม Dashboard */}
+        <div className="mb-5 mt-5">
+          <h3 className="fw-bold mb-3 text-primary">
+            <i className="fas fa-chart-line me-2"></i>Dashboard
+          </h3>
+          <div className="row g-4">
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+              <Link to="/dashboard-pick-daily-member-price" className="text-decoration-none">
+                <div className="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
+                  <div className="card-body text-center">
+                    <i className="fa-solid fas fa-money-bill-wave fa-3x mb-3 text-primary"></i>
+                    <h5 className="card-title fw-semibold">Dashboard <br/>รายงานคนเด็ดประจำวัน</h5>
+                  </div>
+                </div>
+              </Link>
+            </div>  
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+              <Link to="/dashboard-production-process-status" className="text-decoration-none">
+                <div className="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
+                  <div className="card-body text-center">
+                    <i className="fa-solid fas fa-cogs fa-3x mb-3 text-primary"></i>
+                    <h5 className="card-title fw-semibold">Dashboard <br/>รายงานสถานะผัก</h5>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+              <Link to="/dashboard-production-plan" className="text-decoration-none">
+                <div className="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
+                  <div className="card-body text-center">
+                    <i className="fa-solid fas fa-calendar-check fa-3x mb-3 text-primary"></i>
+                    <h5 className="card-title fw-semibold">Dashboard <br/>แผนการผลิต</h5>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="col-12 col-sm-6 col-md-4 col-lg-3">
+              <Link to="/dashboard-veg-daily-plan" className="text-decoration-none">
+                <div className="card h-100 shadow-sm border-0 rounded-4 hover-shadow">
+                  <div className="card-body text-center">
+                    <i className="fa-solid fas fa-clipboard-check fa-3x mb-3 text-primary"></i>
+                    <h5 className="card-title fw-semibold">Dashboard <br/>แผนผักประจำวัน</h5>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+
       </div>
       <style>
         {`
