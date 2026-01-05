@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Modal, Spinner } from 'react-bootstrap';
@@ -37,9 +37,8 @@ function PickDailyMemberPrice() {
     fetch(`${apiKey}${params}`)
       .then(response => response.json())
       .then(data => {
-
-       setFilteredData(data);
-
+        const filtered = data.filter(item => item.Price > 0);
+        setFilteredData(filtered);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
